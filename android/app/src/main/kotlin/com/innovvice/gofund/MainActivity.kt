@@ -1,4 +1,4 @@
-package com.example.gofund
+package com.innovvice.gofund
 
 import io.flutter.embedding.android.FlutterActivity
 
