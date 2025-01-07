@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gofund/constants/theme.dart';
 import 'package:gofund/screens/donate_screen.dart';
-import 'package:gofund/screens/progress_screen.dart';
+import 'package:gofund/screens/projects_screen.dart';
 import 'package:gofund/services/navigation_service.dart';
+import 'package:gofund/widgets/custom_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,22 +14,30 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('GoFund'),
       ),
-      body: Column(
-        children: [
-          const Text('Welcome User!'),
-          ElevatedButton(
-            onPressed: () => NavigationService.instance.navigateTo(
-              const DonateScreen(),
+      body: Padding(
+        padding: AppSpacing.mediumPadding,
+        child: Column(
+          spacing: AppSpacing.small,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Welcome User!',
+              style: AppTextStyles.subtitle,
             ),
-            child: const Text('Donate'),
-          ),
-          ElevatedButton(
-            onPressed: () => NavigationService.instance.navigateTo(
-              const ProgressScreen(),
+            CustomButton(
+              text: 'Donate',
+              onPressed: () => NavigationService.instance.navigateTo(
+                const DonateScreen(),
+              ),
             ),
-            child: const Text('View Progress'),
-          ),
-        ],
+            CustomButton(
+              text: 'View Progress',
+              onPressed: () => NavigationService.instance.navigateTo(
+                const ProjectsScreen(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gofund/screens/home_screen.dart';
+import 'package:gofund/constants/theme.dart';
+import 'package:gofund/screens/main_screen.dart';
 import 'package:gofund/services/navigation_service.dart';
 
 void main() {
@@ -13,8 +14,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GoFund',
+      theme: AppTheme.light,
       navigatorKey: NavigationService.instance.navigatorKey,
-      home: const HomeScreen(),
+      home: const MainScreen(),
     );
   }
 }
