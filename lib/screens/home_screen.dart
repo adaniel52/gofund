@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
-import 'package:gofund/screens/donate_screen.dart';
-import 'package:gofund/screens/projects_screen.dart';
-import 'package:gofund/services/navigation_service.dart';
-import 'package:gofund/widgets/custom_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,24 +14,20 @@ class HomeScreen extends StatelessWidget {
         padding: AppSpacing.mediumPadding,
         child: Column(
           spacing: AppSpacing.small,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Text(
               'Welcome User!',
               style: AppTextStyles.subtitle,
             ),
-            CustomButton(
-              text: 'Donate',
-              onPressed: () => NavigationService.instance.navigateTo(
-                const DonateScreen(),
+            Container(
+              color: Colors.grey,
+              width: double.infinity,
+              height: 300,
+              child: const Center(
+                child: Text('*Insert a random project here*'),
               ),
-            ),
-            CustomButton(
-              text: 'View Progress',
-              onPressed: () => NavigationService.instance.navigateTo(
-                const ProjectsScreen(),
-              ),
-            ),
+            )
           ],
         ),
       ),

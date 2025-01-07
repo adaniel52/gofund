@@ -19,6 +19,7 @@ class AppTextStyles {
 
   static const TextStyle caption = TextStyle(
     fontSize: 12,
+    fontWeight: FontWeight.w600,
     color: AppColors.grey,
   );
 }

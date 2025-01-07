@@ -8,5 +8,8 @@ export './text_styles.dart';
 class AppTheme {
   static final light = ThemeData(
     colorSchemeSeed: Colors.blue,
+    cardTheme: const CardTheme(
+      margin: EdgeInsets.all(0),
+    ),
   );
 }
