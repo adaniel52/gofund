@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gofund/constants/theme.dart';
 import 'package:gofund/models/bank_info.dart';
 import 'package:gofund/widgets/bank_info_card.dart';
