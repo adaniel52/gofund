@@ -17,16 +17,14 @@ class DonateScreen extends StatelessWidget {
         bankName: 'Maybank',
       ),
       BankInfo(
-        accountName:
-            'Koperasi Sekolah Menengah Yayasan Terengganu Kuala Berang Berhad',
-        accountNumber: '513032503116',
+        accountName: 'AKAUN TABUNG KEBAJIKAN SEK MEN IMTIAZ K.BERANG',
+        accountNumber: '563037080612',
         bankName: 'Maybank',
       ),
       BankInfo(
-        accountName:
-            'Koperasi Sekolah Menengah Yayasan Terengganu Kuala Berang Berhad',
-        accountNumber: '513032503116',
-        bankName: 'Maybank',
+        accountName: 'SURAU AL FURQAN SM IMTIAZ YT KUALA BERANG',
+        accountNumber: '1101854648',
+        bankName: 'Bank Rakyat',
       ),
     ];
 
@@ -64,7 +62,7 @@ class DonateScreen extends StatelessWidget {
               ),
               const Divider(),
               const Text(
-                'Prefer to pay manually?',
+                'Manual Payment',
                 style: AppTextStyles.subtitle,
               ),
               const Text(
