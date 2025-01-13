@@ -16,6 +16,7 @@ class ProjectDetailsScreen extends StatelessWidget {
         slivers: [
           SliverAppBar.large(
             expandedHeight: 200,
+            stretch: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
                 project.productName,

@@ -3,6 +3,7 @@ import 'package:gofund/constants/theme.dart';
 import 'package:gofund/models/project.dart';
 import 'package:gofund/screens/project_details_screen.dart';
 import 'package:gofund/services/navigation_service.dart';
+import 'package:gofund/widgets/clickable_card.dart';
 
 class ProjectsScreen extends StatelessWidget {
   const ProjectsScreen({super.key});
@@ -98,47 +99,30 @@ class ProjectCard extends StatelessWidget {
     final double value = project.currentFund / project.targetFund;
     final double percentage = value * 100;
 
-    return FilledButton(
-      style: FilledButton.styleFrom(
-        padding: const EdgeInsets.all(0),
-        backgroundColor: Theme.of(context).colorScheme.surfaceBright,
-        overlayColor: Colors.white,
-        shape: const RoundedRectangleBorder(
-          borderRadius: AppRadius.mediumRadius,
-        ),
-      ),
+    return ClickableCard(
       onPressed: () => NavigationService.instance.navigateTo(
         ProjectDetailsScreen(project: project),
       ),
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.small,
-        ),
-        leading: ClipRRect(
-          borderRadius: AppRadius.smallRadius,
-          child: Image(
-            image: NetworkImage(project.imageUrl),
+      leading: Image(
+        image: NetworkImage(project.imageUrl),
+      ),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            '${project.productName} x${project.productAmount}',
+            style: const TextStyle(height: 0),
           ),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              '${project.productName} x${project.productAmount}',
-              style: const TextStyle(height: 0),
-            ),
-            Text(
-              'MYR ${project.currentFund} / ${project.targetFund} [$percentage%]',
-              style: AppTextStyles.caption,
-            ),
-            const SizedBox(height: AppSpacing.small),
-          ],
-        ),
-        subtitle: LinearProgressIndicator(
-          value: value,
-          borderRadius: AppRadius.smallRadius,
-        ),
-        trailing: const Icon(Icons.chevron_right),
+          Text(
+            'MYR ${project.currentFund} / ${project.targetFund} [$percentage%]',
+            style: AppTextStyles.caption,
+          ),
+          const SizedBox(height: AppSpacing.small),
+        ],
+      ),
+      subtitle: LinearProgressIndicator(
+        value: value,
+        borderRadius: AppRadius.smallRadius,
       ),
     );
   }
