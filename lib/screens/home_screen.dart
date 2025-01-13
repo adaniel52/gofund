@@ -10,25 +10,27 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('GoFund'),
       ),
-      body: Padding(
-        padding: AppSpacing.mediumPadding,
-        child: Column(
-          spacing: AppSpacing.small,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text(
-              'Welcome User!',
-              style: AppTextStyles.subtitle,
-            ),
-            Container(
-              color: Colors.grey,
-              width: double.infinity,
-              height: 300,
-              child: const Center(
-                child: Text('*Insert a random project here*'),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: AppSpacing.mediumPadding,
+          child: Column(
+            spacing: AppSpacing.small,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                'Welcome User!',
+                style: AppTextStyles.subtitle,
               ),
-            )
-          ],
+              Container(
+                color: Colors.grey,
+                width: double.infinity,
+                height: 300,
+                child: const Center(
+                  child: Text('*Insert a random project here*'),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

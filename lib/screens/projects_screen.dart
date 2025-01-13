@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
+import 'package:gofund/models/project.dart';
+import 'package:gofund/screens/project_details_screen.dart';
+import 'package:gofund/services/navigation_service.dart';
 
 class ProjectsScreen extends StatelessWidget {
   const ProjectsScreen({super.key});
@@ -13,47 +16,69 @@ class ProjectsScreen extends StatelessWidget {
     final String url3 =
         'https://i.pinimg.com/236x/9b/b8/e7/9bb8e75c7c5358fb35a437fc447f69b9.jpg';
 
+    final List<Project> projects = [
+      Project(
+        imageUrl: url1,
+        productName: 'Aircond',
+        productAmount: 2,
+        currentFund: 1000,
+        targetFund: 4000,
+      ),
+      Project(
+        imageUrl: url2,
+        productName: 'Ceiling Fan',
+        productAmount: 16,
+        currentFund: 200,
+        targetFund: 10000,
+      ),
+      Project(
+        imageUrl: url3,
+        productName: 'Mihrab',
+        productAmount: 1,
+        currentFund: 5000,
+        targetFund: 5000,
+      ),
+      Project(
+        imageUrl: url3,
+        productName: 'Mihrab',
+        productAmount: 2,
+        currentFund: 7500,
+        targetFund: 5000,
+      ),
+    ];
+
+    final ongoingProjects = projects.where((e) => e.currentFund < e.targetFund);
+    final finishedProjects =
+        projects.where((e) => e.currentFund >= e.targetFund);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Projects'),
       ),
-      body: Padding(
-        padding: AppSpacing.mediumPadding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: AppSpacing.small,
-          children: [
-            const Text(
-              'Ongoing Projects',
-              style: AppTextStyles.subtitle,
-            ),
-            ProjectCard(
-              imageUrl: url1,
-              productName: 'Aircond',
-              productAmount: 2,
-              currentFund: 1000,
-              targetFund: 4000,
-            ),
-            ProjectCard(
-              imageUrl: url2,
-              productName: 'Ceiling Fan',
-              productAmount: 16,
-              currentFund: 200,
-              targetFund: 10000,
-            ),
-            const Divider(),
-            const Text(
-              'Finished Projects',
-              style: AppTextStyles.subtitle,
-            ),
-            ProjectCard(
-              imageUrl: url3,
-              productName: 'Mihrab',
-              productAmount: 1,
-              currentFund: 5000,
-              targetFund: 5000,
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: AppSpacing.mediumPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            spacing: AppSpacing.small,
+            children: [
+              const Text(
+                'Ongoing Projects',
+                style: AppTextStyles.subtitle,
+              ),
+              ...ongoingProjects.map(
+                (e) => ProjectCard(project: e),
+              ),
+              const Divider(),
+              const Text(
+                'Finished Projects',
+                style: AppTextStyles.subtitle,
+              ),
+              ...finishedProjects.map(
+                (e) => ProjectCard(project: e),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -61,34 +86,30 @@ class ProjectsScreen extends StatelessWidget {
 }
 
 class ProjectCard extends StatelessWidget {
-  final String imageUrl;
-  final String productName;
-  final int productAmount;
-  final double currentFund;
-  final double targetFund;
+  final Project project;
 
   const ProjectCard({
     super.key,
-    required this.imageUrl,
-    required this.productName,
-    required this.productAmount,
-    required this.currentFund,
-    required this.targetFund,
+    required this.project,
   });
 
   @override
   Widget build(BuildContext context) {
-    final double value = currentFund / targetFund;
+    final double value = project.currentFund / project.targetFund;
     final double percentage = value * 100;
 
-    return FilledButton.tonal(
+    return FilledButton(
       style: FilledButton.styleFrom(
         padding: const EdgeInsets.all(0),
+        backgroundColor: Theme.of(context).colorScheme.surfaceBright,
+        overlayColor: Colors.white,
         shape: const RoundedRectangleBorder(
           borderRadius: AppRadius.mediumRadius,
         ),
       ),
-      onPressed: () {},
+      onPressed: () => NavigationService.instance.navigateTo(
+        ProjectDetailsScreen(project: project),
+      ),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.small,
@@ -96,17 +117,21 @@ class ProjectCard extends StatelessWidget {
         leading: ClipRRect(
           borderRadius: AppRadius.smallRadius,
           child: Image(
-            image: NetworkImage(imageUrl),
+            image: NetworkImage(project.imageUrl),
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('$productName x$productAmount'),
             Text(
-              'MYR $currentFund / $targetFund [$percentage%]',
+              '${project.productName} x${project.productAmount}',
+              style: const TextStyle(height: 0),
+            ),
+            Text(
+              'MYR ${project.currentFund} / ${project.targetFund} [$percentage%]',
               style: AppTextStyles.caption,
             ),
+            const SizedBox(height: AppSpacing.small),
           ],
         ),
         subtitle: LinearProgressIndicator(
