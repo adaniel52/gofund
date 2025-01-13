@@ -29,6 +29,7 @@ class ClickableCard extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.small,
+          // vertical: 2,
         ),
         leading: ClipRRect(
           borderRadius: AppRadius.smallRadius,

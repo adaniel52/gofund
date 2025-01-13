@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofund/constants/radius.dart';
 import 'package:gofund/constants/text_styles.dart';
 
 export './colors.dart';
@@ -15,18 +16,9 @@ class AppTheme {
     ),
     cardTheme: const CardTheme(
       margin: EdgeInsets.all(0),
+      shape: RoundedRectangleBorder(
+        borderRadius: AppRadius.mediumRadius,
+      ),
     ),
   );
-
-  // static final light = generic.copyWith(
-  //   appBarTheme: AppBarTheme(
-  //     titleTextStyle: AppTextStyles.headline.copyWith(
-  //       color: Colors.black,
-  //     ),
-  //   ),
-  // );
-
-  // static final dark = generic.copyWith(
-  //   brightness: Brightness.dark,
-  // );
 }

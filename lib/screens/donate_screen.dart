@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
 import 'package:gofund/models/bank_info.dart';
+import 'package:gofund/screens/bank_info_details_screen.dart';
+import 'package:gofund/services/navigation_service.dart';
 import 'package:gofund/widgets/clickable_card.dart';
 import 'package:gofund/widgets/custom_button.dart';
+import 'package:gofund/widgets/scaffold_body_wrapper.dart';
 
 class DonateScreen extends StatelessWidget {
   const DonateScreen({super.key});
@@ -37,47 +40,39 @@ class DonateScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Donate'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: AppSpacing.mediumPadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            spacing: AppSpacing.small,
-            children: [
-              const Text(
-                'Online Payment',
-                style: AppTextStyles.subtitle,
-              ),
-              const Text('Insert amount of money (MYR):'),
-              TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: AppRadius.mediumRadius,
-                  ),
-                ),
-              ),
-              CustomButton(
-                text: 'Donate',
-                onPressed: () {},
-              ),
-              const Text(
-                'Powered by Stripe',
-                style: AppTextStyles.caption,
-                textAlign: TextAlign.center,
-              ),
-              const Divider(),
-              const Text(
-                'Manual Payment',
-                style: AppTextStyles.subtitle,
-              ),
-              const Text(
-                  'You can use these school\'s bank accounts information:'),
-              ...bankAccounts.map(
-                (e) => BankInfoCard(bankInfo: e),
-              ),
-            ],
+      body: ScaffoldBodyWrapper(
+        children: [
+          const Text(
+            'Online Payment',
+            style: AppTextStyles.subtitle,
           ),
-        ),
+          const Text('Insert amount of money (MYR):'),
+          TextFormField(
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: AppRadius.mediumRadius,
+              ),
+            ),
+          ),
+          CustomButton(
+            text: 'Donate',
+            onPressed: () {},
+          ),
+          const Text(
+            'Powered by Stripe',
+            style: AppTextStyles.caption,
+            textAlign: TextAlign.center,
+          ),
+          const Divider(),
+          const Text(
+            'Manual Payment',
+            style: AppTextStyles.subtitle,
+          ),
+          const Text('You can use these school\'s bank accounts information:'),
+          ...bankAccounts.map(
+            (e) => BankInfoCard(bankInfo: e),
+          ),
+        ],
       ),
     );
   }
@@ -93,7 +88,9 @@ class BankInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClickableCard(
-      onPressed: () {},
+      onPressed: () => NavigationService.instance.navigateTo(
+        BankInfoDetailsScreen(bankInfo: bankInfo),
+      ),
       leading: Image(
         image: NetworkImage(bankInfo.bankIconUrl),
       ),
