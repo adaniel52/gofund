@@ -20,8 +20,8 @@ class ClickableCard extends StatelessWidget {
       onPressed: onPressed,
       style: FilledButton.styleFrom(
         padding: const EdgeInsets.all(0),
-        backgroundColor: Theme.of(context).colorScheme.surfaceBright,
-        overlayColor: Colors.grey,
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+        overlayColor: Theme.of(context).colorScheme.onSurface,
         shape: const RoundedRectangleBorder(
           borderRadius: AppRadius.mediumRadius,
         ),
@@ -29,7 +29,6 @@ class ClickableCard extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.small,
-          // vertical: 2,
         ),
         leading: ClipRRect(
           borderRadius: AppRadius.smallRadius,

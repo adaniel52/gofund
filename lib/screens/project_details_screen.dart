@@ -15,12 +15,14 @@ class ProjectDetailsScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar.large(
+            // foregroundColor: Colors.white,
             expandedHeight: 200,
             stretch: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
                 project.productName,
                 style: AppTextStyles.headline,
+                // .copyWith(color: Colors.white),
               ),
               centerTitle: true,
               background: Stack(
@@ -31,7 +33,9 @@ class ProjectDetailsScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   ColoredBox(
-                    color: Colors.black.withAlpha(100),
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.black.withAlpha(100)
+                        : Colors.white.withAlpha(100),
                   ),
                 ],
               ),

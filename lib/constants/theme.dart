@@ -8,17 +8,22 @@ export './spacing.dart';
 export './text_styles.dart';
 
 class AppTheme {
-  static final generic = ThemeData(
-    colorSchemeSeed: Colors.blue,
-    brightness: Brightness.dark,
-    appBarTheme: const AppBarTheme(
-      titleTextStyle: AppTextStyles.headline,
-    ),
-    cardTheme: const CardTheme(
-      margin: EdgeInsets.all(0),
-      shape: RoundedRectangleBorder(
-        borderRadius: AppRadius.mediumRadius,
+  static final light = ThemeData(
+    colorSchemeSeed: colorSchemeSeed,
+    appBarTheme: AppBarTheme(
+      titleTextStyle: AppTextStyles.headline.copyWith(
+        color: Colors.black,
       ),
+      // foregroundColor: Colors.black,
+    ),
+    cardTheme: cardTheme,
+  );
+
+  static const Color colorSchemeSeed = Colors.blue;
+  static const CardTheme cardTheme = CardTheme(
+    margin: EdgeInsets.all(0),
+    shape: RoundedRectangleBorder(
+      borderRadius: AppRadius.mediumRadius,
     ),
   );
 }

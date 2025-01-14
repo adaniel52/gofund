@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GoFund',
-      theme: AppTheme.generic,
+      theme: AppTheme.light,
       // darkTheme: AppTheme.dark,
       navigatorKey: NavigationService.instance.navigatorKey,
       home: const MainScreen(),
