@@ -97,6 +97,7 @@ class ProjectCard extends StatelessWidget {
       onPressed: () => NavigationService.instance.navigateTo(
         ProjectDetailsScreen(project: project),
       ),
+      hasImage: true,
       leading: Image(
         image: NetworkImage(project.imageUrl),
       ),

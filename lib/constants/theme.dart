@@ -10,16 +10,26 @@ export './text_styles.dart';
 class AppTheme {
   static final light = ThemeData(
     colorSchemeSeed: colorSchemeSeed,
-    appBarTheme: AppBarTheme(
+    appBarTheme: appBarTheme.copyWith(
       titleTextStyle: AppTextStyles.headline.copyWith(
         color: Colors.black,
       ),
-      // foregroundColor: Colors.black,
     ),
     cardTheme: cardTheme,
   );
 
+  static final dark = ThemeData(
+    colorSchemeSeed: colorSchemeSeed,
+    brightness: Brightness.dark,
+    appBarTheme: appBarTheme,
+    cardTheme: cardTheme,
+  );
+
   static const Color colorSchemeSeed = Colors.blue;
+  static const AppBarTheme appBarTheme = AppBarTheme(
+    centerTitle: true,
+    titleTextStyle: AppTextStyles.headline,
+  );
   static const CardTheme cardTheme = CardTheme(
     margin: EdgeInsets.all(0),
     shape: RoundedRectangleBorder(

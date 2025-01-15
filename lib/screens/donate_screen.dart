@@ -91,6 +91,7 @@ class BankInfoCard extends StatelessWidget {
       onPressed: () => NavigationService.instance.navigateTo(
         BankInfoDetailsScreen(bankInfo: bankInfo),
       ),
+      hasImage: true,
       leading: Image(
         image: NetworkImage(bankInfo.bankIconUrl),
       ),

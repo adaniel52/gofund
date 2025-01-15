@@ -3,15 +3,20 @@ import 'package:gofund/constants/theme.dart';
 
 class ClickableCard extends StatelessWidget {
   final Function() onPressed;
+  final bool hasImage;
   final Widget? leading;
   final Widget? title;
   final Widget? subtitle;
+  final Widget? trailing;
+
   const ClickableCard({
     super.key,
     required this.onPressed,
+    this.hasImage = false,
     this.leading,
     this.title,
     this.subtitle,
+    this.trailing,
   });
 
   @override
@@ -27,19 +32,34 @@ class ClickableCard extends StatelessWidget {
         ),
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.small,
-        ),
-        leading: ClipRRect(
-          borderRadius: AppRadius.smallRadius,
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: leading,
-          ),
-        ),
+        contentPadding: hasImage
+            ? const EdgeInsets.symmetric(
+                horizontal: AppSpacing.medium,
+                vertical: AppSpacing.small,
+              )
+            : null,
+        // const EdgeInsets.fromLTRB(
+        //     AppSpacing.medium,
+        //     0,
+        //     AppSpacing.medium,
+        //     0,
+        //   ),
+        leading: hasImage
+            ? ClipRRect(
+                borderRadius: AppRadius.smallRadius,
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: leading,
+                ),
+              )
+            : leading,
         title: title,
         subtitle: subtitle,
-        trailing: const Icon(Icons.chevron_right),
+        trailing: trailing ??
+            const Icon(
+              Icons.chevron_right_rounded,
+              size: 30,
+            ),
       ),
     );
   }
