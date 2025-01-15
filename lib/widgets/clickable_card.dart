@@ -31,35 +31,32 @@ class ClickableCard extends StatelessWidget {
           borderRadius: AppRadius.mediumRadius,
         ),
       ),
-      child: ListTile(
-        contentPadding: hasImage
-            ? const EdgeInsets.symmetric(
-                horizontal: AppSpacing.medium,
-                vertical: AppSpacing.small,
-              )
-            : null,
-        // const EdgeInsets.fromLTRB(
-        //     AppSpacing.medium,
-        //     0,
-        //     AppSpacing.medium,
-        //     0,
-        //   ),
-        leading: hasImage
-            ? ClipRRect(
-                borderRadius: AppRadius.smallRadius,
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: leading,
-                ),
-              )
-            : leading,
-        title: title,
-        subtitle: subtitle,
-        trailing: trailing ??
-            const Icon(
-              Icons.chevron_right_rounded,
-              size: 30,
-            ),
+      child: IconTheme(
+        data: const IconThemeData(size: 25),
+        child: ListTile(
+          contentPadding: hasImage
+              ? const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.medium,
+                  vertical: AppSpacing.small,
+                )
+              : null,
+          leading: hasImage
+              ? ClipRRect(
+                  borderRadius: AppRadius.smallRadius,
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: leading,
+                  ),
+                )
+              : leading,
+          title: title,
+          subtitle: subtitle,
+          trailing: trailing ??
+              const Icon(
+                Icons.chevron_right_rounded,
+                size: 30,
+              ),
+        ),
       ),
     );
   }

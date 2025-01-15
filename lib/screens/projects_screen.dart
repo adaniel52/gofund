@@ -17,34 +17,36 @@ class ProjectsScreen extends StatelessWidget {
         'https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/my/fan-air-cooler-purifier/ceiling-fan/5-blades-ceiling-fan-with-remote-mfc-140cjr/gallery1.jpg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg';
     final String url3 =
         'https://i.pinimg.com/236x/9b/b8/e7/9bb8e75c7c5358fb35a437fc447f69b9.jpg';
+    final String url4 =
+        'https://img.freepik.com/premium-vector/4k-tv-screen-vector-lcd-led-tv-screen_77760-246.jpg';
 
     final List<Project> projects = [
       Project(
         imageUrl: url1,
         productName: 'Aircond',
         productAmount: 2,
-        currentFund: 1000,
+        currentFund: 1925.35,
         targetFund: 4000,
       ),
       Project(
         imageUrl: url2,
         productName: 'Ceiling Fan',
-        productAmount: 16,
-        currentFund: 239.2948,
-        targetFund: 10000,
+        productAmount: 4,
+        currentFund: 239.29,
+        targetFund: 400,
       ),
       Project(
         imageUrl: url3,
         productName: 'Mihrab',
         productAmount: 1,
-        currentFund: 5390.2840,
-        targetFund: 5000,
+        currentFund: 9284.20,
+        targetFund: 8000,
       ),
       Project(
-        imageUrl: url3,
-        productName: 'Mihrab',
-        productAmount: 2,
-        currentFund: 7500,
+        imageUrl: url4,
+        productName: 'TV',
+        productAmount: 1,
+        currentFund: 6827.28,
         targetFund: 5000,
       ),
     ];

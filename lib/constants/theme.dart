@@ -26,10 +26,12 @@ class AppTheme {
   );
 
   static const Color colorSchemeSeed = Colors.blue;
+
   static const AppBarTheme appBarTheme = AppBarTheme(
     centerTitle: true,
     titleTextStyle: AppTextStyles.headline,
   );
+
   static const CardTheme cardTheme = CardTheme(
     margin: EdgeInsets.all(0),
     shape: RoundedRectangleBorder(
