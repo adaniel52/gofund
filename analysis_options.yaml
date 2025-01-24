@@ -1,1 +1,19 @@
 include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    # General best practices
+    always_declare_return_types: true
+    prefer_typing_uninitialized_variables: true
+
+    # Code style
+    prefer_single_quotes: true
+    prefer_final_fields: true
+
+    # Flutter-specific
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+
+    # Avoid bad practices
+    avoid_print: true
+    avoid_function_literals_in_foreach_calls: true

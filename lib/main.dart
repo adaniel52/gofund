@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gofund/constants/theme.dart';
+import 'package:gofund/pages/main_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,12 +11,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      title: 'GoFund',
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      // themeMode: ThemeMode.dark,
+      home: const MainPage(),
     );
   }
 }
