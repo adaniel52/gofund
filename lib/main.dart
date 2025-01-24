@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gofund/constants/theme.dart';
-import 'package:gofund/screens/main_screen.dart';
-import 'package:gofund/services/navigation_service.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,12 +9,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'GoFund',
-      theme: AppTheme.light,
-      // darkTheme: AppTheme.dark,
-      navigatorKey: NavigationService.instance.navigatorKey,
-      home: const MainScreen(),
+      home: Scaffold(
+        body: Center(
+          child: Text('Hey'),
+        ),
+      ),
     );
   }
 }
