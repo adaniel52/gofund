@@ -5,12 +5,14 @@ class AppTheme {
         brightness: Brightness.light,
         colorSchemeSeed: _colorSchemeSeed,
         textTheme: _textTheme,
+        filledButtonTheme: _filledButtonTheme,
       );
 
   static ThemeData get dark => ThemeData(
         brightness: Brightness.dark,
         colorSchemeSeed: _colorSchemeSeed,
         textTheme: _textTheme,
+        filledButtonTheme: _filledButtonTheme,
       );
 
   static const _colorSchemeSeed = Colors.blue;
@@ -31,6 +33,14 @@ class AppTheme {
     labelLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
     labelMedium: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
     labelSmall: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+  );
+
+  static final _filledButtonTheme = FilledButtonThemeData(
+    style: FilledButton.styleFrom(
+      shape: const RoundedRectangleBorder(
+        borderRadius: AppRadius.largeRadius,
+      ),
+    ),
   );
 }
 

@@ -35,12 +35,12 @@ class ProjectDetailsPage extends StatelessWidget {
       Text(
         project.name,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.displayMedium,
+        style: Theme.of(context).textTheme.displaySmall,
       ),
       Text(
         subtitle,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.titleLarge,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       FractionallySizedBox(
         widthFactor: 0.75,
@@ -56,7 +56,7 @@ class ProjectDetailsPage extends StatelessWidget {
         style: Theme.of(context).textTheme.labelLarge,
       ),
       Row(
-        spacing: AppSpacing.small,
+        spacing: AppSpacing.small * 0.5,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FilledButton(

@@ -93,9 +93,6 @@ class ProjectCard extends StatelessWidget {
     return FilledButton(
       style: FilledButton.styleFrom(
         padding: const EdgeInsets.all(0),
-        shape: const RoundedRectangleBorder(
-          borderRadius: AppRadius.largeRadius,
-        ),
         backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
         overlayColor: Theme.of(context).colorScheme.onSurface,
       ),
@@ -129,7 +126,7 @@ class ProjectCard extends StatelessWidget {
               subtitle,
               style: Theme.of(context).textTheme.labelMedium,
             ),
-            const SizedBox(height: AppSpacing.small),
+            const SizedBox(height: AppSpacing.small * 0.5),
             LinearProgressIndicator(
               borderRadius: AppRadius.smallRadius,
               value: progressValue,
