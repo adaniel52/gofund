@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gofund/pages/donate_page.dart';
 import 'package:gofund/pages/home_page.dart';
-import 'package:gofund/pages/projects_page.dart';
+import 'package:gofund/pages/projects/projects_page.dart';
 import 'package:gofund/pages/settings_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -16,7 +15,6 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _pages = const [
     HomePage(),
-    DonatePage(),
     ProjectsPage(),
     SettingsPage(),
   ];
@@ -26,11 +24,6 @@ class _MainPageState extends State<MainPage> {
       icon: Icon(Icons.home_outlined),
       selectedIcon: Icon(Icons.home),
       label: 'Home',
-    ),
-    const NavigationDestination(
-      icon: Icon(Icons.how_to_vote_outlined),
-      selectedIcon: Icon(Icons.how_to_vote),
-      label: 'Donate',
     ),
     const NavigationDestination(
       icon: Icon(Icons.work_outline),
@@ -51,7 +44,9 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: SafeArea(
+        child: _pages[_selectedIndex],
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         destinations: _destionations,
