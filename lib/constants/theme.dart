@@ -56,8 +56,8 @@ class AppSpacing {
 
 class AppRadius {
   static const _small = 4.0;
-  static const _medium = 12.0;
-  static const _large = 24.0;
+  static const _medium = 8.0;
+  static const _large = 12.0;
 
   static const smallRadius = BorderRadius.all(Radius.circular(_small));
   static const mediumRadius = BorderRadius.all(Radius.circular(_medium));

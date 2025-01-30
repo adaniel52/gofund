@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
 import 'package:gofund/models/project.dart';
+import 'package:gofund/widgets/custom_list_view.dart';
 
 class ProjectDetailsPage extends StatelessWidget {
   final Project project;
@@ -13,9 +14,7 @@ class ProjectDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double padding = AppSpacing.medium;
     final width = MediaQuery.of(context).size.width;
-    if (width > 400) {
-      padding = (width - 400) / 2;
-    }
+    if (width > 400 + AppSpacing.medium) padding = (width - 400) / 2;
 
     final progressValue = project.currentAmount / project.targetAmount;
     final currentAmount = project.currentAmount.toStringAsFixed(2);
@@ -24,12 +23,15 @@ class ProjectDetailsPage extends StatelessWidget {
     final subtitle = 'RM $currentAmount / $targetAmount ($percent)';
 
     final children = [
-      ClipRRect(
-        borderRadius: AppRadius.largeRadius,
-        child: Image(
-          width: double.infinity,
-          image: NetworkImage(project.imageUrl),
-          fit: BoxFit.cover,
+      AspectRatio(
+        aspectRatio: 1,
+        child: ClipRRect(
+          borderRadius: AppRadius.largeRadius,
+          child: Image(
+            width: double.infinity,
+            image: NetworkImage(project.imageUrl),
+            fit: BoxFit.cover,
+          ),
         ),
       ),
       Text(
@@ -56,7 +58,7 @@ class ProjectDetailsPage extends StatelessWidget {
         style: Theme.of(context).textTheme.labelLarge,
       ),
       Row(
-        spacing: AppSpacing.small * 0.5,
+        spacing: AppSpacing.small,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FilledButton(
@@ -73,18 +75,12 @@ class ProjectDetailsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(),
-      body: ListView.separated(
+      body: CustomListView(
         padding: EdgeInsets.symmetric(
           vertical: AppSpacing.medium,
           horizontal: padding,
         ),
-        itemCount: children.length,
-        itemBuilder: (context, index) {
-          return children[index];
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(height: AppSpacing.small);
-        },
+        children: children,
       ),
     );
   }

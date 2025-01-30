@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
 import 'package:gofund/models/project.dart';
 import 'package:gofund/pages/projects/project_details_page.dart';
+import 'package:gofund/widgets/clickable_card.dart';
+import 'package:gofund/widgets/custom_list_view.dart';
 
 class ProjectsPage extends StatelessWidget {
   const ProjectsPage({super.key});
@@ -54,16 +56,7 @@ class ProjectsPage extends StatelessWidget {
       ...finishedProjects.map((e) => ProjectCard(project: e)),
     ];
 
-    return ListView.separated(
-      padding: AppSpacing.mediumPadding,
-      itemCount: children.length,
-      itemBuilder: (context, index) {
-        return children[index];
-      },
-      separatorBuilder: (context, index) {
-        return const SizedBox(height: AppSpacing.small);
-      },
-    );
+    return CustomListView(children: children);
   }
 }
 
@@ -90,53 +83,49 @@ class ProjectCard extends StatelessWidget {
       );
     }
 
-    return FilledButton(
-      style: FilledButton.styleFrom(
-        padding: const EdgeInsets.all(0),
-        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-        overlayColor: Theme.of(context).colorScheme.onSurface,
+    final leading = AspectRatio(
+      aspectRatio: 1,
+      child: ClipRRect(
+        borderRadius: AppRadius.smallRadius,
+        child: Image(
+          image: NetworkImage(project.imageUrl),
+        ),
       ),
+    );
+
+    final content = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          project.name,
+          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                height: 0,
+              ),
+        ),
+        Text(
+          subtitle,
+          style: Theme.of(context).textTheme.labelMedium,
+        ),
+        const SizedBox(height: AppSpacing.small * 0.5),
+        LinearProgressIndicator(
+          borderRadius: AppRadius.smallRadius,
+          value: progressValue,
+        ),
+      ],
+    );
+
+    final trailing = const Icon(
+      Icons.chevron_right_rounded,
+      color: Colors.grey,
+    );
+
+    return ClickableCard(
       onPressed: onPressed,
       child: ListTile(
-        contentPadding: const EdgeInsets.fromLTRB(
-          AppSpacing.medium,
-          AppSpacing.medium,
-          AppSpacing.small / 2,
-          AppSpacing.medium,
-        ),
-        leading: AspectRatio(
-          aspectRatio: 1,
-          child: ClipRRect(
-            borderRadius: AppRadius.mediumRadius,
-            child: Image(
-              image: NetworkImage(project.imageUrl),
-            ),
-          ),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              project.name,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    height: 0,
-                  ),
-            ),
-            Text(
-              subtitle,
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-            const SizedBox(height: AppSpacing.small * 0.5),
-            LinearProgressIndicator(
-              borderRadius: AppRadius.smallRadius,
-              value: progressValue,
-            ),
-          ],
-        ),
-        trailing: const Icon(
-          Icons.chevron_right_rounded,
-          size: 28,
-        ),
+        contentPadding: AppSpacing.mediumPadding,
+        leading: leading,
+        title: content,
+        trailing: trailing,
       ),
     );
   }
