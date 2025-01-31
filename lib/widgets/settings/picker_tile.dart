@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
-import 'package:gofund/widgets/clickable_tile.dart';
+import 'package:gofund/widgets/base_tile.dart';
 
 class PickerTile<T> extends StatelessWidget {
   final IconData icon;
   final String title;
+  final String label;
   final Map<String, T> options;
-  final String selectedLabel;
   final Function(T) onSelected;
 
   const PickerTile({
     super.key,
     required this.icon,
     required this.title,
+    required this.label,
     required this.options,
-    required this.selectedLabel,
     required this.onSelected,
   });
 
@@ -58,13 +58,14 @@ class PickerTile<T> extends StatelessWidget {
       );
     }
 
-    return ClickableTile(
+    return BaseTile(
       key: buttonKey,
       onPressed: onPressed,
       child: ListTile(
         visualDensity: VisualDensity.compact,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: AppSpacing.medium),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.medium,
+        ),
         leading: Icon(icon),
         title: Text(
           title,
@@ -74,7 +75,7 @@ class PickerTile<T> extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              selectedLabel,
+              label,
               style: Theme.of(context).textTheme.labelLarge!.copyWith(
                     color: Colors.grey,
                   ),
