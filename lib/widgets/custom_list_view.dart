@@ -13,15 +13,17 @@ class CustomListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: padding,
-      itemCount: children.length,
-      itemBuilder: (context, index) {
-        return children[index];
-      },
-      separatorBuilder: (context, index) {
-        return const SizedBox(height: AppSpacing.small);
-      },
+    return Scrollbar(
+      child: ListView.separated(
+        padding: padding,
+        itemCount: children.length,
+        itemBuilder: (context, index) {
+          return children[index];
+        },
+        separatorBuilder: (context, index) {
+          return const SizedBox(height: AppSpacing.small);
+        },
+      ),
     );
   }
 }

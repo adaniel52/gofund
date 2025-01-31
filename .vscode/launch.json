@@ -13,19 +13,13 @@
             "name": "profile",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile",
-            "args": [
-                "-v"
-            ]
+            "flutterMode": "profile"
         },
         {
             "name": "release",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release",
-            "args": [
-                "-v"
-            ]
+            "flutterMode": "release"
         },
         {
             "name": "attach",

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ClickableCard extends StatelessWidget {
+class ClickableTile extends StatelessWidget {
   final Function() onPressed;
   final Widget child;
 
-  const ClickableCard({
+  const ClickableTile({
     super.key,
     required this.onPressed,
     required this.child,
