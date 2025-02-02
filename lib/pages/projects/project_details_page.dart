@@ -77,7 +77,7 @@ class ProjectDetailsPage extends StatelessWidget {
       appBar: AppBar(),
       body: CustomListView(
         padding: EdgeInsets.symmetric(
-          vertical: AppSpacing.medium,
+          vertical: AppSpacing.large,
           horizontal: padding,
         ),
         children: children,
