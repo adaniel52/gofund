@@ -14,31 +14,25 @@ class SettingsPage extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     final children = [
-      const CircleAvatar(
-        radius: 50,
-        backgroundColor: Colors.amber,
-        child: Icon(Icons.person),
-      ),
-      ActionTile(
-        icon: Icons.person,
-        title: 'Name',
-        onPressed: () {},
-      ),
-      ActionTile(
-        icon: Icons.email,
-        title: 'Email',
-        onPressed: () {},
-      ),
-      ActionTile(
-        icon: Icons.password,
-        title: 'Password',
+      const Text('Account'),
+      BaseTile(
+        leading: const CircleAvatar(
+          child: Icon(Icons.person),
+        ),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text('Guest'),
+            Text(
+              'Sign up to save your progess',
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+          ],
+        ),
         onPressed: () {},
       ),
       const Divider(),
-      Text(
-        'Appearance',
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
+      const Text('Appearance'),
       PickerTile<ThemeMode>(
         icon: Icons.nights_stay,
         title: 'App Theme',
@@ -51,10 +45,7 @@ class SettingsPage extends StatelessWidget {
         onSelected: (value) => themeProvider.setTheme(value),
       ),
       const Divider(),
-      Text(
-        'More',
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
+      const Text('More'),
       ActionTile(
         icon: Icons.feedback,
         title: 'Send Feedback',
@@ -80,15 +71,13 @@ class SettingsPage extends StatelessWidget {
           );
         },
       ),
-      BaseTile(
-        leading: const Icon(Icons.abc),
-        content: const Text('data'),
-        onPressed: () {},
-      ),
     ];
 
-    return CustomListView(
-      children: children,
+    return DefaultTextStyle(
+      style: Theme.of(context).textTheme.titleLarge!,
+      child: CustomListView(
+        children: children,
+      ),
     );
   }
 }

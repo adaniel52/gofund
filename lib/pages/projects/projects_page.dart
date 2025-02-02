@@ -41,19 +41,18 @@ class ProjectsPage extends StatelessWidget {
     );
 
     final children = [
-      Text(
-        'Ongoing Projects',
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
+      const Text('Ongoing Projects'),
       ...ongoingProjects.map((e) => ProjectTile(project: e)),
       const Divider(),
-      Text(
-        'Finished Projects',
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
+      const Text('Finished Projects'),
       ...finishedProjects.map((e) => ProjectTile(project: e)),
     ];
 
-    return CustomListView(children: children);
+    return DefaultTextStyle(
+      style: Theme.of(context).textTheme.titleLarge!,
+      child: CustomListView(
+        children: children,
+      ),
+    );
   }
 }
