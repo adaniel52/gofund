@@ -27,8 +27,8 @@ class ProjectTile extends StatelessWidget {
       );
     }
 
-    final leading = AspectRatio(
-      aspectRatio: 1,
+    final leading = SizedBox.square(
+      dimension: 56,
       child: ClipRRect(
         borderRadius: AppRadius.smallRadius,
         child: Image(
@@ -42,9 +42,7 @@ class ProjectTile extends StatelessWidget {
       children: [
         Text(
           project.name,
-          style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                height: 0,
-              ),
+          style: const TextStyle(height: 0),
         ),
         Text(
           subtitle,
@@ -58,19 +56,10 @@ class ProjectTile extends StatelessWidget {
       ],
     );
 
-    final trailing = const Icon(
-      Icons.chevron_right_rounded,
-      color: Colors.grey,
-    );
-
     return BaseTile(
+      leading: leading,
+      content: content,
       onPressed: onPressed,
-      child: ListTile(
-        contentPadding: AppSpacing.mediumPadding,
-        leading: leading,
-        title: content,
-        trailing: trailing,
-      ),
     );
   }
 }

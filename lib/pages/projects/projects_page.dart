@@ -14,21 +14,21 @@ class ProjectsPage extends StatelessWidget {
         currentAmount: 600,
         targetAmount: 1000,
         imageUrl:
-            'https://static.wixstatic.com/media/95eccd_18b73ffa6fe349dcb1d2108e767741e5~mv2.jpg/v1/fill/w_306,h_306,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/iphone%20se.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh7jSGB0d-5Pg5SqdFXNzwiuBedLi2f4mobg&s',
       ),
       Project(
         name: 'Aircond 2',
         currentAmount: 1000,
         targetAmount: 1000,
         imageUrl:
-            'https://static.wixstatic.com/media/95eccd_18b73ffa6fe349dcb1d2108e767741e5~mv2.jpg/v1/fill/w_306,h_306,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/iphone%20se.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh7jSGB0d-5Pg5SqdFXNzwiuBedLi2f4mobg&s',
       ),
       Project(
         name: 'Aircond 3',
         currentAmount: 9999,
         targetAmount: 1000,
         imageUrl:
-            'https://static.wixstatic.com/media/95eccd_18b73ffa6fe349dcb1d2108e767741e5~mv2.jpg/v1/fill/w_306,h_306,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/iphone%20se.jpg',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh7jSGB0d-5Pg5SqdFXNzwiuBedLi2f4mobg&s',
       ),
     ];
 

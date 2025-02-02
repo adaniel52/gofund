@@ -60,33 +60,10 @@ class PickerTile<T> extends StatelessWidget {
 
     return BaseTile(
       key: buttonKey,
+      leading: Icon(icon),
+      content: Text(title),
+      label: label,
       onPressed: onPressed,
-      child: ListTile(
-        visualDensity: VisualDensity.compact,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.medium,
-        ),
-        leading: Icon(icon),
-        title: Text(
-          title,
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              label,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Colors.grey,
-                  ),
-            ),
-            const Icon(
-              Icons.chevron_right_rounded,
-              color: Colors.grey,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

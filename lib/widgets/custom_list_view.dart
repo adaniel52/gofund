@@ -4,7 +4,7 @@ import 'package:gofund/constants/theme.dart';
 class CustomListView extends StatelessWidget {
   const CustomListView({
     super.key,
-    this.padding = AppSpacing.mediumPadding,
+    this.padding = AppSpacing.largePadding,
     required this.children,
   });
 
@@ -13,8 +13,12 @@ class CustomListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scrollController = ScrollController();
+
     return Scrollbar(
+      controller: scrollController,
       child: ListView.separated(
+        controller: scrollController,
         padding: padding,
         itemCount: children.length,
         itemBuilder: (context, index) {

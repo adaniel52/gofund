@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/providers/theme.dart';
+import 'package:gofund/widgets/base_tile.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
 import 'package:gofund/widgets/settings/action_tile.dart';
 import 'package:gofund/widgets/settings/picker_tile.dart';
@@ -78,6 +79,11 @@ class SettingsPage extends StatelessWidget {
             applicationVersion: 'v0.1.0',
           );
         },
+      ),
+      BaseTile(
+        leading: const Icon(Icons.abc),
+        content: const Text('data'),
+        onPressed: () {},
       ),
     ];
 
