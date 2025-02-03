@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
 import 'package:gofund/pages/auth/signup_page.dart';
+import 'package:gofund/pages/main_page.dart';
 import 'package:gofund/services/auth_service.dart';
-import 'package:gofund/utils/show_error_dialog.dart';
-import 'package:gofund/utils/show_loading_dialog.dart';
+import 'package:gofund/utils/dialogs/show_error_dialog.dart';
+import 'package:gofund/utils/dialogs/show_loading_dialog.dart';
 import 'package:gofund/widgets/custom_column.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -28,16 +29,26 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  Future<void> login() async {
-    if (!_formKey.currentState!.validate()) return;
+  Future<void> login({required bool isGuest}) async {
+    if (!isGuest && !_formKey.currentState!.validate()) return;
     showLoadingDialog(context);
     try {
-      await authService.signUp(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
+      if (isGuest) {
+        await authService.logInAsGuest();
+      } else {
+        await authService.logIn(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+      }
       if (!mounted) return;
       Navigator.of(context).pop();
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const MainPage(),
+        ),
+        (route) => false,
+      );
     } on AuthException catch (e) {
       if (!mounted) return;
       Navigator.of(context).pop();
@@ -101,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       const Divider(),
       FilledButton(
-        onPressed: login,
+        onPressed: () => login(isGuest: false),
         child: const Text('Log In'),
       ),
       Row(
@@ -117,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
             child: const Text('Sign Up'),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () => login(isGuest: true),
             child: const Text('Guest'),
           ),
         ],

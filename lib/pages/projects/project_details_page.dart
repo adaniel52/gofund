@@ -23,15 +23,12 @@ class ProjectDetailsPage extends StatelessWidget {
     final subtitle = 'RM $currentAmount / $targetAmount ($percent)';
 
     final children = [
-      AspectRatio(
-        aspectRatio: 1,
-        child: ClipRRect(
-          borderRadius: AppRadius.largeRadius,
-          child: Image(
-            width: double.infinity,
-            image: NetworkImage(project.imageUrl),
-            fit: BoxFit.cover,
-          ),
+      ClipRRect(
+        borderRadius: AppRadius.largeRadius,
+        child: Image(
+          width: double.infinity,
+          image: NetworkImage(project.imageUrl),
+          fit: BoxFit.cover,
         ),
       ),
       Text(

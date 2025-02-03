@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gofund/constants/theme.dart';
-import 'package:gofund/pages/auth/login_page.dart';
+import 'package:gofund/pages/auth/auth_gate.dart';
 import 'package:gofund/providers/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -43,7 +43,7 @@ class MainApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeMode,
-      home: const LoginPage(),
+      home: const AuthGate(),
     );
   }
 }

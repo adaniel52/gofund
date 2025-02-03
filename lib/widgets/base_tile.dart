@@ -1,45 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
 
-// class BaseTile extends StatelessWidget {
-//   final Function() onPressed;
-//   final Widget child;
-
-//   const BaseTile({
-//     super.key,
-//     required this.onPressed,
-//     required this.child,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return FilledButton(
-//       style: FilledButton.styleFrom(
-//         padding: const EdgeInsets.all(0),
-//         backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-//         overlayColor: Theme.of(context).colorScheme.onSurface,
-//       ),
-//       onPressed: onPressed,
-//       child: IconTheme(
-//         data: const IconThemeData(size: 24),
-//         child: child,
-//       ),
-//     );
-//   }
-// }
-
 class BaseTile extends StatelessWidget {
   final Widget? leading;
   final Widget content;
   final String? label;
-  final Function() onPressed;
+  final Function()? onPressed;
 
   const BaseTile({
     super.key,
     this.leading,
     required this.content,
     this.label,
-    required this.onPressed,
+    this.onPressed,
   });
 
   @override
@@ -48,6 +21,8 @@ class BaseTile extends StatelessWidget {
       style: FilledButton.styleFrom(
         padding: const EdgeInsets.all(0),
         backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+        disabledBackgroundColor:
+            Theme.of(context).colorScheme.surfaceContainerHighest,
         overlayColor: Theme.of(context).colorScheme.onSurface,
       ),
       onPressed: onPressed,
@@ -72,10 +47,11 @@ class BaseTile extends StatelessWidget {
                       textAlign: TextAlign.end,
                     ),
                   ),
-                const Icon(
-                  Icons.chevron_right_rounded,
-                  color: Colors.grey,
-                ),
+                if (onPressed != null)
+                  const Icon(
+                    Icons.chevron_right_rounded,
+                    color: Colors.grey,
+                  ),
               ],
             ),
           ),

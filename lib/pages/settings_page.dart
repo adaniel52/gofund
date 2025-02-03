@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
 import 'package:gofund/providers/theme.dart';
-import 'package:gofund/widgets/base_tile.dart';
+import 'package:gofund/services/auth_service.dart';
+import 'package:gofund/utils/dialogs/show_confirmation_dialog.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
+import 'package:gofund/widgets/settings/account_tile.dart';
 import 'package:gofund/widgets/settings/action_tile.dart';
 import 'package:gofund/widgets/settings/picker_tile.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -13,25 +16,21 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final user = AuthService().getUser();
+
+    Future<void> openUrl(String url) async {
+      final shouldOpenUrl = await showConfirmationDialog(
+        context,
+        message: 'Are you sure you want to open $url?',
+      );
+      if (!shouldOpenUrl) return;
+      final uri = Uri.parse(url);
+      await launchUrl(uri);
+    }
 
     final children = [
       const Text('Account'),
-      BaseTile(
-        leading: const CircleAvatar(
-          child: Icon(Icons.person),
-        ),
-        content: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text('Guest'),
-            Text(
-              'Sign up to save your progess',
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-          ],
-        ),
-        onPressed: () {},
-      ),
+      if (user != null) AccountTile(user: user),
       const Divider(),
       const Text('Appearance'),
       PickerTile<ThemeMode>(
@@ -56,7 +55,7 @@ class SettingsPage extends StatelessWidget {
         icon: Icons.public,
         title: 'Website',
         label: 'adaniel52.github.io/gofund',
-        onPressed: () {},
+        onPressed: () => openUrl('https://adaniel52.github.io/gofund'),
       ),
       ActionTile(
         icon: Icons.info,

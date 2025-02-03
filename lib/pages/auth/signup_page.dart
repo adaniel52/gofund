@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
+import 'package:gofund/pages/main_page.dart';
 import 'package:gofund/services/auth_service.dart';
-import 'package:gofund/utils/show_error_dialog.dart';
-import 'package:gofund/utils/show_loading_dialog.dart';
+import 'package:gofund/utils/dialogs/show_error_dialog.dart';
+import 'package:gofund/utils/dialogs/show_loading_dialog.dart';
 import 'package:gofund/widgets/custom_column.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -15,6 +16,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -22,6 +24,7 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -32,11 +35,18 @@ class _SignupPageState extends State<SignupPage> {
     showLoadingDialog(context);
     try {
       await authService.signUp(
+        name: _nameController.text,
         email: _emailController.text,
         password: _passwordController.text,
       );
       if (!mounted) return;
       Navigator.of(context).pop();
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const MainPage(),
+        ),
+        (route) => false,
+      );
     } on AuthException catch (e) {
       if (!mounted) return;
       Navigator.of(context).pop();
@@ -66,6 +76,16 @@ class _SignupPageState extends State<SignupPage> {
         textAlign: TextAlign.center,
       ),
       const Divider(),
+      TextFormField(
+        decoration: const InputDecoration(
+          labelText: 'Name',
+        ),
+        controller: _nameController,
+        validator: (value) {
+          if (value == '') return 'Can\'t be empty';
+          return null;
+        },
+      ),
       TextFormField(
         decoration: const InputDecoration(
           labelText: 'Email',
