@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gofund/constants/theme.dart';
-import 'package:gofund/pages/main_page.dart';
+import 'package:gofund/pages/auth/login_page.dart';
 import 'package:gofund/providers/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ),
+  );
 
   await dotenv.load();
 
@@ -37,7 +43,7 @@ class MainApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeMode,
-      home: const MainPage(),
+      home: const LoginPage(),
     );
   }
 }

@@ -12,9 +12,9 @@ class ProjectDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double padding = AppSpacing.large;
+    double horizontalPadding = AppSpacing.large;
     final width = MediaQuery.of(context).size.width;
-    if (width > 400 + AppSpacing.large) padding = (width - 400) / 2;
+    if (width > 400 + AppSpacing.large) horizontalPadding = (width - 400) / 2;
 
     final progressValue = project.currentAmount / project.targetAmount;
     final currentAmount = project.currentAmount.toStringAsFixed(2);
@@ -78,7 +78,7 @@ class ProjectDetailsPage extends StatelessWidget {
       body: CustomListView(
         padding: EdgeInsets.symmetric(
           vertical: AppSpacing.large,
-          horizontal: padding,
+          horizontal: horizontalPadding,
         ),
         children: children,
       ),

@@ -1,15 +1,25 @@
-// import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-// class AuthService {
-//   final supabase = Supabase.instance.client;
+class AuthService {
+  final supabase = Supabase.instance.client;
 
-//   Future<void> signUp({
-//     required String email,
-//     required String password,
-//   }) async {
-//     final response = await supabase.auth.signUp(
-//       email: email,
-//       password: password,
-//     );
-//   }
-// }
+  Future<void> signUp({
+    required String email,
+    required String password,
+  }) async {
+    final response = await supabase.auth.signUp(
+      email: email,
+      password: password,
+    );
+  }
+
+  Future<void> logIn({
+    required String email,
+    required String password,
+  }) async {
+    final response = await supabase.auth.signInWithPassword(
+      email: email,
+      password: password,
+    );
+  }
+}

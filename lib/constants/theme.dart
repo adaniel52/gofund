@@ -6,6 +6,8 @@ class AppTheme {
         colorSchemeSeed: _colorSchemeSeed,
         textTheme: _textTheme,
         filledButtonTheme: _filledButtonTheme,
+        inputDecorationTheme: _inputDecorationTheme,
+        dialogTheme: _dialogThemeData,
       );
 
   static ThemeData get dark => ThemeData(
@@ -13,6 +15,8 @@ class AppTheme {
         colorSchemeSeed: _colorSchemeSeed,
         textTheme: _textTheme,
         filledButtonTheme: _filledButtonTheme,
+        inputDecorationTheme: _inputDecorationTheme,
+        dialogTheme: _dialogThemeData,
       );
 
   static const _colorSchemeSeed = Colors.blue;
@@ -40,6 +44,18 @@ class AppTheme {
       shape: const RoundedRectangleBorder(
         borderRadius: AppRadius.largeRadius,
       ),
+    ),
+  );
+
+  static const _inputDecorationTheme = InputDecorationTheme(
+    border: OutlineInputBorder(
+      borderRadius: AppRadius.largeRadius,
+    ),
+  );
+
+  static const _dialogThemeData = DialogThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: AppRadius.largeRadius,
     ),
   );
 }

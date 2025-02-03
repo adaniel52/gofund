@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofund/constants/theme.dart';
 import 'package:gofund/models/project.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
 import 'package:gofund/widgets/projects/project_tile.dart';
@@ -51,6 +52,7 @@ class ProjectsPage extends StatelessWidget {
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.titleLarge!,
       child: CustomListView(
+        padding: AppSpacing.largePadding,
         children: children,
       ),
     );

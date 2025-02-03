@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gofund/pages/home_page.dart';
 import 'package:gofund/pages/projects/projects_page.dart';
 import 'package:gofund/pages/settings_page.dart';
@@ -44,19 +43,14 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: Theme.of(context).brightness == Brightness.light
-          ? SystemUiOverlayStyle.dark
-          : SystemUiOverlayStyle.light,
-      child: Scaffold(
-        body: SafeArea(
-          child: _pages[_selectedIndex],
-        ),
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _selectedIndex,
-          destinations: _destionations,
-          onDestinationSelected: _onDestinationSelected,
-        ),
+    return Scaffold(
+      body: SafeArea(
+        child: _pages[_selectedIndex],
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _selectedIndex,
+        destinations: _destionations,
+        onDestinationSelected: _onDestinationSelected,
       ),
     );
   }

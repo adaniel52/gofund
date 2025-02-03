@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofund/constants/theme.dart';
 import 'package:gofund/providers/theme.dart';
 import 'package:gofund/widgets/base_tile.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
@@ -76,6 +77,7 @@ class SettingsPage extends StatelessWidget {
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.titleLarge!,
       child: CustomListView(
+        padding: AppSpacing.largePadding,
         children: children,
       ),
     );

@@ -4,11 +4,11 @@ import 'package:gofund/constants/theme.dart';
 class CustomListView extends StatelessWidget {
   const CustomListView({
     super.key,
-    this.padding = AppSpacing.largePadding,
+    this.padding,
     required this.children,
   });
 
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
   final List<Widget> children;
 
   @override
