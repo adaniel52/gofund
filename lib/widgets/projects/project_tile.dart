@@ -13,9 +13,9 @@ class ProjectTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progressValue = project.currentAmount / project.targetAmount;
-    final currentAmount = project.currentAmount.toStringAsFixed(2);
-    final targetAmount = project.targetAmount.toStringAsFixed(2);
+    final progressValue = project.collectedAmount / project.goalAmount;
+    final currentAmount = project.collectedAmount.toStringAsFixed(2);
+    final targetAmount = project.goalAmount.toStringAsFixed(2);
     final percent = '${(progressValue * 100).toStringAsFixed(2)}%';
     final subtitle = 'RM $currentAmount / $targetAmount ($percent)';
 
@@ -27,15 +27,17 @@ class ProjectTile extends StatelessWidget {
       );
     }
 
-    final leading = SizedBox.square(
-      dimension: 56,
-      child: ClipRRect(
-        borderRadius: AppRadius.smallRadius,
-        child: Image(
-          image: NetworkImage(project.imageUrl),
-        ),
-      ),
-    );
+    final leading = (project.imageUrl == null)
+        ? null
+        : SizedBox.square(
+            dimension: 56,
+            child: ClipRRect(
+              borderRadius: AppRadius.smallRadius,
+              child: Image(
+                image: NetworkImage(project.imageUrl!),
+              ),
+            ),
+          );
 
     final content = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

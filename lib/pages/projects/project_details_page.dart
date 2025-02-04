@@ -16,21 +16,22 @@ class ProjectDetailsPage extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     if (width > 400 + AppSpacing.large) horizontalPadding = (width - 400) / 2;
 
-    final progressValue = project.currentAmount / project.targetAmount;
-    final currentAmount = project.currentAmount.toStringAsFixed(2);
-    final targetAmount = project.targetAmount.toStringAsFixed(2);
+    final progressValue = project.collectedAmount / project.goalAmount;
+    final currentAmount = project.collectedAmount.toStringAsFixed(2);
+    final targetAmount = project.goalAmount.toStringAsFixed(2);
     final percent = '${(progressValue * 100).toStringAsFixed(2)}%';
     final subtitle = 'RM $currentAmount / $targetAmount ($percent)';
 
     final children = [
-      ClipRRect(
-        borderRadius: AppRadius.largeRadius,
-        child: Image(
-          width: double.infinity,
-          image: NetworkImage(project.imageUrl),
-          fit: BoxFit.cover,
+      if (project.imageUrl != null)
+        ClipRRect(
+          borderRadius: AppRadius.largeRadius,
+          child: Image(
+            width: double.infinity,
+            image: NetworkImage(project.imageUrl!),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
       Text(
         project.name,
         textAlign: TextAlign.center,

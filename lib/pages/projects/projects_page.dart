@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
-import 'package:gofund/models/project.dart';
+import 'package:gofund/services/project_service.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
 import 'package:gofund/widgets/projects/project_tile.dart';
 
@@ -9,52 +9,49 @@ class ProjectsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final projects = [
-      Project(
-        name: 'Aircond 1',
-        currentAmount: 600,
-        targetAmount: 1000,
-        imageUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh7jSGB0d-5Pg5SqdFXNzwiuBedLi2f4mobg&s',
-      ),
-      Project(
-        name: 'Aircond 2',
-        currentAmount: 1000,
-        targetAmount: 1000,
-        imageUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh7jSGB0d-5Pg5SqdFXNzwiuBedLi2f4mobg&s',
-      ),
-      Project(
-        name: 'Aircond 3',
-        currentAmount: 9999,
-        targetAmount: 1000,
-        imageUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh7jSGB0d-5Pg5SqdFXNzwiuBedLi2f4mobg&s',
-      ),
-    ];
+    return FutureBuilder(
+      future: ProjectService().getProjects(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
 
-    final ongoingProjects = projects.where(
-      (e) => e.currentAmount < e.targetAmount,
-    );
+        if (snapshot.hasError) {
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        }
 
-    final finishedProjects = projects.where(
-      (e) => e.currentAmount >= e.targetAmount,
-    );
+        final projects = snapshot.data ?? [];
 
-    final children = [
-      const Text('Ongoing Projects'),
-      ...ongoingProjects.map((e) => ProjectTile(project: e)),
-      const Divider(),
-      const Text('Finished Projects'),
-      ...finishedProjects.map((e) => ProjectTile(project: e)),
-    ];
+        if (projects.isEmpty) {
+          return const Center(
+            child: Text('No projects available.'),
+          );
+        }
 
-    return DefaultTextStyle(
-      style: Theme.of(context).textTheme.titleLarge!,
-      child: CustomListView(
-        padding: AppSpacing.largePadding,
-        children: children,
-      ),
+        final ongoingProjects = projects.where((e) => !e.isFinished);
+        final finishedProjects = projects.where((e) => e.isFinished);
+
+        final children = [
+          if (ongoingProjects.isNotEmpty) const Text('Ongoing Projects'),
+          ...ongoingProjects.map((e) => ProjectTile(project: e)),
+          if (ongoingProjects.isNotEmpty && finishedProjects.isNotEmpty)
+            const Divider(),
+          if (finishedProjects.isNotEmpty) const Text('Finished Projects'),
+          ...finishedProjects.map((e) => ProjectTile(project: e)),
+        ];
+
+        return DefaultTextStyle(
+          style: Theme.of(context).textTheme.titleLarge!,
+          child: CustomListView(
+            padding: AppSpacing.largePadding,
+            children: children,
+          ),
+        );
+      },
     );
   }
 }
