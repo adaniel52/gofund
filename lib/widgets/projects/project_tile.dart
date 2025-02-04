@@ -29,13 +29,15 @@ class ProjectTile extends StatelessWidget {
 
     final leading = (project.imageUrl == null)
         ? null
-        : SizedBox.square(
-            dimension: 56,
-            child: ClipRRect(
+        : Container(
+            width: 52,
+            decoration: const BoxDecoration(
+              color: Colors.white,
               borderRadius: AppRadius.smallRadius,
-              child: Image(
-                image: NetworkImage(project.imageUrl!),
-              ),
+            ),
+            clipBehavior: Clip.hardEdge,
+            child: Image(
+              image: NetworkImage(project.imageUrl!),
             ),
           );
 
@@ -51,9 +53,13 @@ class ProjectTile extends StatelessWidget {
           style: Theme.of(context).textTheme.labelMedium,
         ),
         const SizedBox(height: AppSpacing.small * 0.5),
-        LinearProgressIndicator(
-          borderRadius: AppRadius.smallRadius,
-          value: progressValue,
+        Padding(
+          padding: const EdgeInsets.all(1),
+          child: LinearProgressIndicator(
+            backgroundColor: Theme.of(context).colorScheme.outlineVariant,
+            borderRadius: AppRadius.smallRadius,
+            value: progressValue,
+          ),
         ),
       ],
     );

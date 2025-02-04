@@ -38,8 +38,12 @@ class AccountPage extends StatelessWidget {
     final children = [
       const CircleAvatar(
         radius: 52,
-        child: Icon(Icons.person),
+        child: Icon(
+          Icons.person,
+          size: 52,
+        ),
       ),
+      const Divider(),
       ActionTile(
         icon: Icons.person,
         title: 'Name',

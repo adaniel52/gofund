@@ -24,12 +24,15 @@ class ProjectDetailsPage extends StatelessWidget {
 
     final children = [
       if (project.imageUrl != null)
-        ClipRRect(
-          borderRadius: AppRadius.largeRadius,
+        Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: AppRadius.largeRadius,
+          ),
+          clipBehavior: Clip.hardEdge,
           child: Image(
-            width: double.infinity,
-            image: NetworkImage(project.imageUrl!),
             fit: BoxFit.cover,
+            image: NetworkImage(project.imageUrl!),
           ),
         ),
       Text(

@@ -9,11 +9,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ),
-  );
 
   await dotenv.load();
 
@@ -38,12 +33,25 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeMode = Provider.of<ThemeProvider>(context).theme;
+
     return MaterialApp(
       title: 'GoFund',
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeMode,
       home: const AuthGate(),
+      builder: (context, child) {
+        final brightness = (Theme.of(context).brightness == Brightness.dark)
+            ? Brightness.light
+            : Brightness.dark;
+        SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: brightness,
+          ),
+        );
+        return child!;
+      },
     );
   }
 }
