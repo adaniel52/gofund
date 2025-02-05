@@ -41,13 +41,15 @@ class MainApp extends StatelessWidget {
       themeMode: themeMode,
       home: const AuthGate(),
       builder: (context, child) {
-        final brightness = (Theme.of(context).brightness == Brightness.dark)
+        final brightness = Theme.of(context).brightness;
+        final inverseBrightness = (brightness == Brightness.dark)
             ? Brightness.light
             : Brightness.dark;
         SystemChrome.setSystemUIOverlayStyle(
           SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
-            statusBarIconBrightness: brightness,
+            statusBarIconBrightness: inverseBrightness,
+            statusBarBrightness: brightness,
           ),
         );
         return child!;

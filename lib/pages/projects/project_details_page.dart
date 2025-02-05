@@ -23,7 +23,7 @@ class ProjectDetailsPage extends StatelessWidget {
     final subtitle = 'RM $currentAmount / $targetAmount ($percent)';
 
     final children = [
-      if (project.imageUrl != null)
+      if (project.imageUrl != null) ...[
         Container(
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -35,6 +35,8 @@ class ProjectDetailsPage extends StatelessWidget {
             image: NetworkImage(project.imageUrl!),
           ),
         ),
+        const Divider(),
+      ],
       Text(
         project.name,
         textAlign: TextAlign.center,
@@ -48,6 +50,7 @@ class ProjectDetailsPage extends StatelessWidget {
       FractionallySizedBox(
         widthFactor: 0.75,
         child: LinearProgressIndicator(
+          backgroundColor: Theme.of(context).colorScheme.outlineVariant,
           borderRadius: AppRadius.smallRadius,
           value: progressValue,
         ),
