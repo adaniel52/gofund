@@ -8,7 +8,7 @@ Future<bool> showConfirmationDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            icon: const Icon(Icons.check),
+            icon: const Icon(Icons.question_mark),
             title: const Text('Confirmation'),
             content: Text(message),
             actions: [

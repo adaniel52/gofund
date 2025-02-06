@@ -16,7 +16,7 @@ class PaymentService {
     final url = 'https://api.stripe.com/v1/payment_intents';
 
     final body = {
-      'amount': (amount * 100).toString(),
+      'amount': (amount * 100).toStringAsFixed(0),
       'currency': 'myr',
     };
 
@@ -36,6 +36,8 @@ class PaymentService {
 
   Future<void> makePayment(double amount) async {
     final paymentIntent = await _createPaymentIntent(amount);
+
+    print(paymentIntent);
 
     await _stripe.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
