@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:gofund/constants/theme.dart';
 import 'package:gofund/models/project.dart';
+import 'package:gofund/services/payment_service.dart';
+import 'package:gofund/utils/dialogs/show_error_dialog.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
 
 class ProjectDetailsPage extends StatelessWidget {
@@ -66,7 +69,70 @@ class ProjectDetailsPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FilledButton(
-            onPressed: () {},
+            onPressed: () async {
+              try {
+                final text = await showDialog<String?>(
+                  context: context,
+                  builder: (context) {
+                    final formKey = GlobalKey<FormState>();
+                    final controller = TextEditingController();
+                    return AlertDialog(
+                      icon: const Icon(Icons.credit_card),
+                      title: const Text('Enter Amount'),
+                      content: Form(
+                        key: formKey,
+                        child: TextFormField(
+                          controller: controller,
+                          decoration: const InputDecoration(hintText: 'RM 10'),
+                          validator: (value) {
+                            final num = double.tryParse(value!);
+                            if (num == null) return 'Not a valid number';
+                            if (num < 2) return 'Number is too small';
+                            return null;
+                          },
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            if (!formKey.currentState!.validate()) return;
+                            Navigator.of(context).pop(controller.text);
+                          },
+                          child: const Text('Next'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+
+                if (text == null) return;
+
+                final amount = double.parse(
+                  double.parse(text).toStringAsFixed(2),
+                );
+
+                await PaymentService().makePayment(amount);
+              } on StripeException catch (e) {
+                if (!context.mounted) return;
+                showErrorDialog(
+                  context,
+                  message: e.error.message!,
+                  errorCode: e.error.code.toString(),
+                );
+              } catch (e) {
+                if (!context.mounted) return;
+                showErrorDialog(
+                  context,
+                  message: e.toString(),
+                );
+              }
+            },
             child: const Text('Online Payment'),
           ),
           FilledButton.tonal(
