@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
-import 'package:gofund/services/project_service.dart';
+import 'package:gofund/services/database/project_service.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
 import 'package:gofund/widgets/projects/project_tile.dart';
 

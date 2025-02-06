@@ -4,10 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class ProjectService {
   final _db = Supabase.instance.client.from('projects');
 
-  Future createProject(Project project) async {
-    await _db.insert(project.toJson());
-  }
-
   Future<List<Project>> getProjects() async {
     final response = await _db.select();
 

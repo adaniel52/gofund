@@ -3,15 +3,19 @@ import 'package:gofund/constants/theme.dart';
 
 class BaseTile extends StatelessWidget {
   final Widget? leading;
-  final Widget content;
+  final Widget? content;
   final String? label;
+  final Widget? trailing;
+  final TextStyle? textStyle;
   final Function()? onPressed;
 
   const BaseTile({
     super.key,
     this.leading,
-    required this.content,
+    this.content,
     this.label,
+    this.trailing,
+    this.textStyle,
     this.onPressed,
   });
 
@@ -27,7 +31,7 @@ class BaseTile extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: DefaultTextStyle(
-        style: Theme.of(context).textTheme.labelLarge!,
+        style: textStyle ?? Theme.of(context).textTheme.labelLarge!,
         child: IconTheme(
           data: IconThemeData(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -38,7 +42,7 @@ class BaseTile extends StatelessWidget {
               spacing: AppSpacing.medium,
               children: [
                 if (leading != null) leading!,
-                Expanded(child: content),
+                if (content != null) Expanded(child: content!),
                 if (label != null)
                   Expanded(
                     child: Text(
@@ -47,11 +51,12 @@ class BaseTile extends StatelessWidget {
                       textAlign: TextAlign.end,
                     ),
                   ),
-                if (onPressed != null)
-                  const Icon(
-                    Icons.chevron_right_rounded,
-                    color: Colors.grey,
-                  ),
+                if (onPressed != null || trailing != null)
+                  trailing ??
+                      const IconTheme(
+                        data: IconThemeData(color: Colors.grey),
+                        child: Icon(Icons.chevron_right_rounded),
+                      ),
               ],
             ),
           ),

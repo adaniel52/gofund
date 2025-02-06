@@ -37,8 +37,6 @@ class PaymentService {
   Future<void> makePayment(double amount) async {
     final paymentIntent = await _createPaymentIntent(amount);
 
-    print(paymentIntent);
-
     await _stripe.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: paymentIntent['client_secret'],

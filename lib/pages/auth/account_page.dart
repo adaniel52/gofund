@@ -64,9 +64,11 @@ class AccountPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(),
-      body: CustomListView(
-        padding: AppSpacing.largePadding,
-        children: children,
+      body: SafeArea(
+        child: CustomListView(
+          padding: AppSpacing.largePadding,
+          children: children,
+        ),
       ),
     );
   }

@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:gofund/constants/theme.dart';
 import 'package:gofund/models/project.dart';
+import 'package:gofund/services/database/bank_service.dart';
 import 'package:gofund/services/payment_service.dart';
 import 'package:gofund/utils/dialogs/show_error_dialog.dart';
+import 'package:gofund/utils/dialogs/show_succcess_dialog.dart';
+import 'package:gofund/widgets/base_tile.dart';
 import 'package:gofund/widgets/custom_column.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
+import 'package:gofund/widgets/settings/action_tile.dart';
 
 class ProjectDetailsPage extends StatelessWidget {
   final Project project;
@@ -81,25 +85,10 @@ class ProjectDetailsPage extends StatelessWidget {
         );
         await PaymentService().makePayment(amount);
         if (!context.mounted) return;
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              icon: const Icon(Icons.check),
-              title: const Text('Success'),
-              content: Text(
-                'RM${amount.toStringAsFixed(2)} has been funded into project ${project.name}. Thank you!',
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            );
-          },
+        showSuccessDialog(
+          context,
+          message:
+              'RM${amount.toStringAsFixed(2)} has been funded into project ${project.name}. Thank you!',
         );
       } on StripeException catch (e) {
         if (!context.mounted) return;
@@ -115,6 +104,54 @@ class ProjectDetailsPage extends StatelessWidget {
           message: e.toString(),
         );
       }
+    }
+
+    Future<void> transferBank() async {
+      final bank = await BankService().getBank(project);
+      if (!context.mounted) return;
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            icon: const Icon(Icons.account_balance_wallet),
+            title: const Text('Bank Transfer'),
+            content: CustomColumn(
+              children: [
+                const Text('You can use this school\'s bank account:'),
+                BaseTile(
+                  textStyle: Theme.of(context).textTheme.labelSmall,
+                  content: const Text('Account Name'),
+                  label: bank.accountName,
+                  trailing: const Icon(
+                    Icons.copy,
+                    size: 12,
+                  ),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: AppRadius.largeRadius,
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        content: Text('Copied to clipboard!'),
+                      ),
+                    );
+                  },
+                ),
+                ActionTile(
+                  title: 'Account Number',
+                  label: bank.accountNumber,
+                ),
+                ActionTile(
+                  title: 'Bank Name',
+                  label: bank.bankName,
+                ),
+              ],
+            ),
+          );
+        },
+      );
     }
 
     final children = [
@@ -156,30 +193,32 @@ class ProjectDetailsPage extends StatelessWidget {
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.labelLarge,
       ),
-      Row(
-        spacing: AppSpacing.small,
-        mainAxisAlignment: MainAxisAlignment.center,
+      Column(
         children: [
-          FilledButton(
+          FilledButton.icon(
             onPressed: payOnline,
-            child: const Text('Online Payment'),
+            icon: const Icon(Icons.credit_card),
+            label: const Text('Online Payment'),
           ),
-          FilledButton.tonal(
-            onPressed: () {},
-            child: const Text('Manual Transfer'),
+          FilledButton.tonalIcon(
+            onPressed: transferBank,
+            icon: const Icon(Icons.account_balance_wallet),
+            label: const Text('Bank Transfer'),
           ),
         ],
-      )
+      ),
     ];
 
     return Scaffold(
       appBar: AppBar(),
-      body: CustomListView(
-        padding: EdgeInsets.symmetric(
-          vertical: AppSpacing.large,
-          horizontal: horizontalPadding,
+      body: SafeArea(
+        child: CustomListView(
+          padding: EdgeInsets.symmetric(
+            vertical: AppSpacing.large,
+            horizontal: horizontalPadding,
+          ),
+          children: children,
         ),
-        children: children,
       ),
     );
   }
