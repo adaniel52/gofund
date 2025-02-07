@@ -4,7 +4,7 @@ import 'package:gofund/models/project.dart';
 import 'package:gofund/services/database/project_service.dart';
 import 'package:gofund/utils/dialogs/show_error_dialog.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
-import 'package:gofund/widgets/projects/project_tile.dart';
+import 'package:gofund/widgets/tiles/project_tile.dart';
 
 class ProjectsPage extends StatefulWidget {
   const ProjectsPage({super.key});

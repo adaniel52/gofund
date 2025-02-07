@@ -12,7 +12,7 @@ import 'package:gofund/utils/dialogs/show_error_dialog.dart';
 import 'package:gofund/utils/dialogs/show_succcess_dialog.dart';
 import 'package:gofund/widgets/custom_column.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
-import 'package:gofund/widgets/settings/copy_tile.dart';
+import 'package:gofund/widgets/tiles/copy_tile.dart';
 
 class ProjectDetailsPage extends StatefulWidget {
   final Project project;

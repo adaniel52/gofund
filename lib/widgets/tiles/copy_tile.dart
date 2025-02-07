@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gofund/constants/theme.dart';
-import 'package:gofund/widgets/base_tile.dart';
+import 'package:gofund/widgets/tiles/base_tile.dart';
 
 class CopyTile extends StatelessWidget {
   const CopyTile({

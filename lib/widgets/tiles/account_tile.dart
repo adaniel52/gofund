@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/models/custom_auth_user.dart';
 import 'package:gofund/pages/auth/account_page.dart';
-import 'package:gofund/widgets/base_tile.dart';
+import 'package:gofund/widgets/tiles/base_tile.dart';
 
 class AccountTile extends StatelessWidget {
   final CustomAuthUser user;

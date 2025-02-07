@@ -4,9 +4,9 @@ import 'package:gofund/providers/theme.dart';
 import 'package:gofund/services/auth_service.dart';
 import 'package:gofund/utils/dialogs/show_confirmation_dialog.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
-import 'package:gofund/widgets/settings/account_tile.dart';
-import 'package:gofund/widgets/settings/action_tile.dart';
-import 'package:gofund/widgets/settings/picker_tile.dart';
+import 'package:gofund/widgets/tiles/account_tile.dart';
+import 'package:gofund/widgets/tiles/action_tile.dart';
+import 'package:gofund/widgets/tiles/picker_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 

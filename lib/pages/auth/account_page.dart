@@ -5,7 +5,7 @@ import 'package:gofund/pages/auth/auth_gate.dart';
 import 'package:gofund/services/auth_service.dart';
 import 'package:gofund/utils/dialogs/show_confirmation_dialog.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
-import 'package:gofund/widgets/settings/action_tile.dart';
+import 'package:gofund/widgets/tiles/action_tile.dart';
 
 class AccountPage extends StatelessWidget {
   final CustomAuthUser user;

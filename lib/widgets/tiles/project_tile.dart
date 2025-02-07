@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
 import 'package:gofund/models/project.dart';
 import 'package:gofund/pages/projects/project_details_page.dart';
-import 'package:gofund/widgets/base_tile.dart';
+import 'package:gofund/widgets/tiles/base_tile.dart';
 
 class ProjectTile extends StatelessWidget {
   final Project project;

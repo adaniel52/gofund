@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gofund/widgets/base_tile.dart';
+import 'package:gofund/widgets/tiles/base_tile.dart';
 
 class ActionTile<T> extends StatelessWidget {
   final IconData? icon;
