@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
+import 'package:gofund/models/database_user.dart';
 import 'package:gofund/pages/main_page.dart';
 import 'package:gofund/services/auth_service.dart';
 import 'package:gofund/services/database/user_service.dart';
@@ -41,10 +42,10 @@ class _SignupPageState extends State<SignupPage> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      // final userId = authService.getUser()!.id;
-      // await userService.createDatabaseUser(
-      //   DatabaseUser(id: userId),
-      // );
+      final userId = authService.getUser()!.id;
+      await userService.createDatabaseUser(
+        DatabaseUser(id: userId),
+      );
       if (!mounted) return;
       Navigator.of(context).pop();
       Navigator.of(context).pushAndRemoveUntil(

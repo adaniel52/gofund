@@ -18,4 +18,8 @@ class ProjectService {
 
     return projects;
   }
+
+  Future<void> updateProject(Project project) async {
+    await _db.update(project.toJson()).eq('id', project.id);
+  }
 }

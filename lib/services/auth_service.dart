@@ -39,7 +39,7 @@ class AuthService {
     final user = _supabase.auth.currentUser;
     if (user == null) return null;
     return CustomAuthUser(
-      id: user.aud,
+      id: user.id,
       name: user.userMetadata?['name'] ?? 'Guest',
       email: (user.email == '') ? 'None' : user.email ?? 'None',
       isGuest: user.isAnonymous,

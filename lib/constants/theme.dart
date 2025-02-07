@@ -8,6 +8,7 @@ class AppTheme {
         filledButtonTheme: _filledButtonTheme,
         inputDecorationTheme: _inputDecorationTheme,
         dialogTheme: _dialogThemeData,
+        materialTapTargetSize: MaterialTapTargetSize.padded,
       );
 
   static ThemeData get dark => ThemeData(
@@ -17,6 +18,7 @@ class AppTheme {
         filledButtonTheme: _filledButtonTheme,
         inputDecorationTheme: _inputDecorationTheme,
         dialogTheme: _dialogThemeData,
+        materialTapTargetSize: MaterialTapTargetSize.padded,
       );
 
   static const _colorSchemeSeed = Colors.blue;
