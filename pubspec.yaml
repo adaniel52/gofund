@@ -1,7 +1,7 @@
 name: gofund
-description: "A new Flutter project."
+description: "An app that connects schools with donors for transparent and efficient fundraising."
 publish_to: 'none'
-version: 0.1.0
+version: 1.0.0
 
 environment:
   sdk: ^3.6.0
