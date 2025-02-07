@@ -84,7 +84,7 @@ class SettingsPage extends StatelessWidget {
                 'assets/icon/transparent.png',
                 width: 52,
               ),
-              applicationVersion: 'v0.1.0',
+              applicationVersion: 'v1.0.0',
               children: [
                 const Text(
                   'An app that connects schools with donors for transparent and efficient fundraising.',
