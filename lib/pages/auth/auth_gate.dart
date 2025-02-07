@@ -17,10 +17,12 @@ class _AuthGateState extends State<AuthGate> {
     _checkSession();
   }
 
+  final authService = AuthService.instance;
+
   void _checkSession() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        final user = AuthService().getUser();
+        final user = authService.getUser();
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) =>

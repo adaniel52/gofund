@@ -4,6 +4,9 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 
 class PaymentService {
+  PaymentService._();
+  static final instance = PaymentService._();
+
   final _stripe = Stripe.instance;
   final _publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
   final _secretKey = dotenv.env['STRIPE_SECRET_KEY']!;
@@ -34,16 +37,19 @@ class PaymentService {
     return json.decode(response.body);
   }
 
-  Future<void> makePayment(double amount) async {
+  Future<PaymentIntent> makePayment(double amount) async {
     final paymentIntent = await _createPaymentIntent(amount);
+    final clientSecret = paymentIntent['client_secret'];
 
     await _stripe.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
-        paymentIntentClientSecret: paymentIntent['client_secret'],
+        paymentIntentClientSecret: clientSecret,
         merchantDisplayName: 'GoFund',
       ),
     );
 
     await _stripe.presentPaymentSheet();
+
+    return await _stripe.retrievePaymentIntent(clientSecret);
   }
 }

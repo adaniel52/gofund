@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:gofund/constants/theme.dart';
+import 'package:gofund/models/donation.dart';
 import 'package:gofund/models/project.dart';
+import 'package:gofund/services/auth_service.dart';
 import 'package:gofund/services/database/bank_service.dart';
+import 'package:gofund/services/database/donation_service.dart';
 import 'package:gofund/services/payment_service.dart';
 import 'package:gofund/utils/dialogs/show_error_dialog.dart';
 import 'package:gofund/utils/dialogs/show_succcess_dialog.dart';
-import 'package:gofund/widgets/base_tile.dart';
 import 'package:gofund/widgets/custom_column.dart';
 import 'package:gofund/widgets/custom_list_view.dart';
-import 'package:gofund/widgets/settings/action_tile.dart';
+import 'package:gofund/widgets/settings/copy_tile.dart';
 
 class ProjectDetailsPage extends StatelessWidget {
   final Project project;
@@ -29,6 +31,10 @@ class ProjectDetailsPage extends StatelessWidget {
     final targetAmount = project.goalAmount.toStringAsFixed(2);
     final percent = '${(progressValue * 100).toStringAsFixed(2)}%';
     final subtitle = 'RM $currentAmount / $targetAmount ($percent)';
+
+    final paymentService = PaymentService.instance;
+    final authService = AuthService.instance;
+    final donationService = DonationService.instance;
 
     Future<void> payOnline() async {
       try {
@@ -83,7 +89,18 @@ class ProjectDetailsPage extends StatelessWidget {
         final amount = double.parse(
           double.parse(text).toStringAsFixed(2),
         );
-        await PaymentService().makePayment(amount);
+        final paymentIntent = await paymentService.makePayment(amount);
+
+        final userId = authService.getUser()!.id;
+        final donation = Donation(
+          id: paymentIntent.id,
+          userId: userId,
+          projectId: project.id,
+          amount: amount,
+          createdAt: DateTime.now(),
+        );
+        await donationService.createDonation(donation);
+
         if (!context.mounted) return;
         showSuccessDialog(
           context,
@@ -118,32 +135,26 @@ class ProjectDetailsPage extends StatelessWidget {
             content: CustomColumn(
               children: [
                 const Text('You can use this school\'s bank account:'),
-                BaseTile(
-                  textStyle: Theme.of(context).textTheme.labelSmall,
-                  content: const Text('Account Name'),
+                CopyTile(
+                  title: 'Account Name',
                   label: bank.accountName,
-                  trailing: const Icon(
-                    Icons.copy,
-                    size: 12,
-                  ),
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).clearSnackBars();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: AppRadius.largeRadius,
-                        ),
-                        behavior: SnackBarBehavior.floating,
-                        content: Text('Copied to clipboard!'),
-                      ),
-                    );
-                  },
                 ),
-                ActionTile(
+                CopyTile(
                   title: 'Account Number',
                   label: bank.accountNumber,
                 ),
-                ActionTile(
+                CopyTile(
+                  trailing: (bank.bankImageUrl == null)
+                      ? null
+                      : Container(
+                          width: 26,
+                          height: 26,
+                          decoration: const BoxDecoration(
+                            borderRadius: AppRadius.smallRadius,
+                          ),
+                          clipBehavior: Clip.hardEdge,
+                          child: Image(image: NetworkImage(bank.bankImageUrl!)),
+                        ),
                   title: 'Bank Name',
                   label: bank.bankName,
                 ),

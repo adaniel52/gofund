@@ -9,8 +9,9 @@ class ProjectsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final projectService = ProjectService.instance;
     return FutureBuilder(
-      future: ProjectService().getProjects(),
+      future: projectService.getProjects(),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Center(

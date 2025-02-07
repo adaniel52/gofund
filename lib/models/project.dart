@@ -8,7 +8,7 @@ class Project {
   final DateTime? createdAt;
   final DateTime? modifiedAt;
 
-  Project({
+  const Project({
     required this.id,
     required this.name,
     this.collectedAmount = 0,

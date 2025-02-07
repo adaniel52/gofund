@@ -1,7 +1,10 @@
-import 'package:gofund/models/app_user.dart';
+import 'package:gofund/models/custom_auth_user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
+  AuthService._();
+  static final instance = AuthService._();
+
   final _supabase = Supabase.instance.client;
 
   Future<void> signUp({
@@ -32,10 +35,11 @@ class AuthService {
     );
   }
 
-  AppUser? getUser() {
+  CustomAuthUser? getUser() {
     final user = _supabase.auth.currentUser;
     if (user == null) return null;
-    return AppUser(
+    return CustomAuthUser(
+      id: user.aud,
       name: user.userMetadata?['name'] ?? 'Guest',
       email: (user.email == '') ? 'None' : user.email ?? 'None',
       isGuest: user.isAnonymous,

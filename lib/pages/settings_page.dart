@@ -16,7 +16,8 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final user = AuthService().getUser();
+    final authService = AuthService.instance;
+    final user = authService.getUser();
 
     Future<void> openUrl(String url) async {
       final shouldOpenUrl = await showConfirmationDialog(

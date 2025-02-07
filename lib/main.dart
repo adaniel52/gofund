@@ -18,7 +18,7 @@ void main() async {
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
 
-  await PaymentService().init();
+  await PaymentService.instance.init();
 
   runApp(
     MultiProvider(

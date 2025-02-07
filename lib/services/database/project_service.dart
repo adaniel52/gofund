@@ -2,6 +2,9 @@ import 'package:gofund/models/project.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProjectService {
+  ProjectService._();
+  static final instance = ProjectService._();
+
   final _db = Supabase.instance.client.from('projects');
 
   Future<List<Project>> getProjects() async {

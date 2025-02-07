@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
-import 'package:gofund/models/app_user.dart';
+import 'package:gofund/models/custom_auth_user.dart';
 import 'package:gofund/pages/auth/auth_gate.dart';
 import 'package:gofund/services/auth_service.dart';
 import 'package:gofund/utils/dialogs/show_confirmation_dialog.dart';
@@ -8,14 +8,14 @@ import 'package:gofund/widgets/custom_list_view.dart';
 import 'package:gofund/widgets/settings/action_tile.dart';
 
 class AccountPage extends StatelessWidget {
-  final AppUser user;
+  final CustomAuthUser user;
 
   AccountPage({
     super.key,
     required this.user,
   });
 
-  final authService = AuthService();
+  final authService = AuthService.instance;
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ class Bank {
   final String? bankImageUrl;
   final DateTime? createdAt;
 
-  Bank({
+  const Bank({
     required this.id,
     required this.accountName,
     required this.accountNumber,
