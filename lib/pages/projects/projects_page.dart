@@ -48,7 +48,6 @@ class _ProjectsPageState extends State<ProjectsPage> {
   }
 
   void onPop(bool shouldUpdate) {
-    print(shouldUpdate);
     if (!shouldUpdate) return;
     _fetchProjects();
   }
