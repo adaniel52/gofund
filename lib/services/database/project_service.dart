@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:gofund/models/project.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -17,6 +19,19 @@ class ProjectService {
     ).toList();
 
     return projects;
+  }
+
+  Future<Project> getProjectById(int id) async {
+    final response = await _db.select().eq('id', id).single();
+
+    return Project.fromJson(response);
+  }
+
+  Future<Project> getRandomProject() async {
+    final projects = await getProjects();
+    final ongoingProjects = projects.where((e) => !e.isFinished).toList();
+    final randomIndex = Random().nextInt(ongoingProjects.length);
+    return ongoingProjects[randomIndex];
   }
 
   Future<void> updateProject(Project project) async {

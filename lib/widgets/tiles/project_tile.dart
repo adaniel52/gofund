@@ -6,7 +6,7 @@ import 'package:gofund/widgets/tiles/base_tile.dart';
 
 class ProjectTile extends StatelessWidget {
   final Project project;
-  final Function(bool)? onPop;
+  final void Function(bool)? onPop;
   const ProjectTile({
     super.key,
     required this.project,
@@ -15,12 +15,6 @@ class ProjectTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progressValue = project.collectedAmount / project.goalAmount;
-    final currentAmount = project.collectedAmount.toStringAsFixed(2);
-    final targetAmount = project.goalAmount.toStringAsFixed(2);
-    final percent = '${(progressValue * 100).toStringAsFixed(2)}%';
-    final subtitle = 'RM $currentAmount / $targetAmount ($percent)';
-
     Future<void> onPressed() async {
       final shouldUpdate = await Navigator.of(context).push(
             MaterialPageRoute<bool>(
@@ -53,7 +47,7 @@ class ProjectTile extends StatelessWidget {
           style: const TextStyle(height: 0),
         ),
         Text(
-          subtitle,
+          project.progressText,
           style: Theme.of(context).textTheme.labelMedium,
         ),
         const SizedBox(height: AppSpacing.small * 0.5),
@@ -62,7 +56,7 @@ class ProjectTile extends StatelessWidget {
           child: LinearProgressIndicator(
             backgroundColor: Theme.of(context).colorScheme.outlineVariant,
             borderRadius: AppRadius.smallRadius,
-            value: progressValue,
+            value: project.completionRatio,
           ),
         ),
       ],

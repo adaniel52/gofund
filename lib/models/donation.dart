@@ -48,4 +48,6 @@ class Donation {
       createdAt: createdAt ?? this.createdAt,
     );
   }
+
+  String get amountText => 'RM ${amount.toStringAsFixed(2)}';
 }

@@ -7,6 +7,7 @@ import 'package:gofund/services/auth_service.dart';
 import 'package:gofund/services/database/bank_service.dart';
 import 'package:gofund/services/database/donation_service.dart';
 import 'package:gofund/services/database/project_service.dart';
+import 'package:gofund/services/database/user_service.dart';
 import 'package:gofund/services/payment_service.dart';
 import 'package:gofund/utils/dialogs/show_error_dialog.dart';
 import 'package:gofund/utils/dialogs/show_succcess_dialog.dart';
@@ -30,6 +31,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
   final authService = AuthService.instance;
   final donationService = DonationService.instance;
   final projectService = ProjectService.instance;
+  final userService = UserService.instance;
 
   bool _shouldUpdate = false;
   late Project _project;
@@ -58,7 +60,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                   const Text('Enter the amount in the RM currency:'),
                   TextFormField(
                     controller: controller,
-                    decoration: const InputDecoration(hintText: 'e.g. 10'),
+                    decoration: const InputDecoration(hintText: 'e.g. 5'),
                     validator: (value) {
                       final num = double.tryParse(value!);
                       if (num == null) return 'Not a valid number';
@@ -109,6 +111,11 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
         collectedAmount: _project.collectedAmount + amount,
       );
       await projectService.updateProject(updatedProject);
+      final databaseUser = await userService.getDatabaseUser();
+      final updatedDatabaseUser = databaseUser.copyWith(
+        totalDonated: databaseUser.totalDonated + amount,
+      );
+      await userService.updateDatabaseUser(updatedDatabaseUser);
       setState(() {
         _shouldUpdate = true;
         _project = updatedProject;
@@ -190,12 +197,6 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
     final width = MediaQuery.of(context).size.width;
     if (width > 400 + AppSpacing.large) horizontalPadding = (width - 400) / 2;
 
-    final progressValue = _project.collectedAmount / _project.goalAmount;
-    final currentAmount = _project.collectedAmount.toStringAsFixed(2);
-    final targetAmount = _project.goalAmount.toStringAsFixed(2);
-    final percent = '${(progressValue * 100).toStringAsFixed(2)}%';
-    final subtitle = 'RM $currentAmount / $targetAmount ($percent)';
-
     final children = [
       if (_project.imageUrl != null) ...[
         Container(
@@ -217,7 +218,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
         style: Theme.of(context).textTheme.displaySmall,
       ),
       Text(
-        subtitle,
+        _project.progressText,
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.titleMedium,
       ),
@@ -226,7 +227,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
         child: LinearProgressIndicator(
           backgroundColor: Theme.of(context).colorScheme.outlineVariant,
           borderRadius: AppRadius.smallRadius,
-          value: progressValue,
+          value: _project.completionRatio,
         ),
       ),
       const Divider(),

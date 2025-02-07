@@ -44,7 +44,10 @@ class _SignupPageState extends State<SignupPage> {
       );
       final userId = authService.getUser()!.id;
       await userService.createDatabaseUser(
-        DatabaseUser(id: userId),
+        DatabaseUser(
+          id: userId,
+          name: _nameController.text,
+        ),
       );
       if (!mounted) return;
       Navigator.of(context).pop();

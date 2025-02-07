@@ -19,6 +19,8 @@ class SettingsPage extends StatelessWidget {
     final authService = AuthService.instance;
     final user = authService.getUser();
 
+    final url = 'https://adaniel52.github.io/gofund';
+
     Future<void> openUrl(String url) async {
       final shouldOpenUrl = await showConfirmationDialog(
         context,
@@ -30,10 +32,16 @@ class SettingsPage extends StatelessWidget {
     }
 
     final children = [
-      const Text('Account'),
+      Text(
+        'Account',
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
       if (user != null) AccountTile(user: user),
       const Divider(),
-      const Text('Appearance'),
+      Text(
+        'Appearance',
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
       PickerTile<ThemeMode>(
         icon: Icons.nights_stay,
         title: 'App Theme',
@@ -46,40 +54,49 @@ class SettingsPage extends StatelessWidget {
         onSelected: (value) => themeProvider.setTheme(value),
       ),
       const Divider(),
-      const Text('More'),
+      Text(
+        'More',
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+      ActionTile(
+        icon: Icons.help,
+        title: 'User Guide',
+        onPressed: () => openUrl('$url/links/guide'),
+      ),
       ActionTile(
         icon: Icons.feedback,
         title: 'Send Feedback',
-        onPressed: () {},
+        onPressed: () => openUrl('$url/links/feedback'),
       ),
       ActionTile(
         icon: Icons.public,
         title: 'Website',
         label: 'adaniel52.github.io/gofund',
-        onPressed: () => openUrl('https://adaniel52.github.io/gofund'),
+        onPressed: () => openUrl(url),
       ),
       ActionTile(
         icon: Icons.info,
         title: 'About App',
         onPressed: () {
           showAboutDialog(
-            context: context,
-            applicationIcon: Image.asset(
-              'assets/icon/transparent.png',
-              width: 52,
-            ),
-            applicationVersion: 'v0.1.0',
-          );
+              context: context,
+              applicationIcon: Image.asset(
+                'assets/icon/transparent.png',
+                width: 52,
+              ),
+              applicationVersion: 'v0.1.0',
+              children: [
+                const Text(
+                  'An app that connects schools with donors for transparent and efficient fundraising.',
+                )
+              ]);
         },
       ),
     ];
 
-    return DefaultTextStyle(
-      style: Theme.of(context).textTheme.titleLarge!,
-      child: CustomListView(
-        padding: AppSpacing.largePadding,
-        children: children,
-      ),
+    return CustomListView(
+      padding: AppSpacing.largePadding,
+      children: children,
     );
   }
 }

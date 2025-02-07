@@ -77,7 +77,11 @@ class _ProjectsPageState extends State<ProjectsPage> {
     }
 
     final children = [
-      if (_ongoingProjects.isNotEmpty) const Text('Ongoing Projects'),
+      if (_ongoingProjects.isNotEmpty)
+        Text(
+          'Ongoing Projects',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ..._ongoingProjects.map(
         (e) => ProjectTile(
           project: e,
@@ -86,7 +90,11 @@ class _ProjectsPageState extends State<ProjectsPage> {
       ),
       if (_ongoingProjects.isNotEmpty && _finishedProjects.isNotEmpty)
         const Divider(),
-      if (_finishedProjects.isNotEmpty) const Text('Finished Projects'),
+      if (_finishedProjects.isNotEmpty)
+        Text(
+          'Finished Projects',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ..._finishedProjects.map(
         (e) => ProjectTile(
           project: e,
@@ -95,14 +103,11 @@ class _ProjectsPageState extends State<ProjectsPage> {
       ),
     ];
 
-    return DefaultTextStyle(
-      style: Theme.of(context).textTheme.titleLarge!,
-      child: RefreshIndicator(
-        onRefresh: _fetchProjects,
-        child: CustomListView(
-          padding: AppSpacing.largePadding,
-          children: children,
-        ),
+    return RefreshIndicator(
+      onRefresh: _fetchProjects,
+      child: CustomListView(
+        padding: AppSpacing.largePadding,
+        children: children,
       ),
     );
   }

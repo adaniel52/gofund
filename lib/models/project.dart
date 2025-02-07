@@ -62,5 +62,18 @@ class Project {
     );
   }
 
-  bool get isFinished => collectedAmount >= goalAmount;
+  bool get isFinished => (collectedAmount >= goalAmount);
+
+  double get completionRatio => (collectedAmount / goalAmount);
+  double get percent {
+    double percent = completionRatio * 100;
+    if (percent > 100) percent = 100;
+    return percent;
+  }
+
+  String get collectedAmountText => collectedAmount.toStringAsFixed(2);
+  String get goalAmountText => goalAmount.toStringAsFixed(2);
+  String get percentText => '${percent.toStringAsFixed(2)}%';
+  String get progressText =>
+      'RM $collectedAmountText / $goalAmountText ($percentText)';
 }

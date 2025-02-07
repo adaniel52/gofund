@@ -17,4 +17,29 @@ class UserService {
     final response = await _db.select().eq('id', userId).single();
     return DatabaseUser.fromJson(response);
   }
+
+  Future<DatabaseUser> getDatabaseUserById(String id) async {
+    final response = await _db.select().eq('id', id).single();
+    return DatabaseUser.fromJson(response);
+  }
+
+  Future<List<DatabaseUser>> getTopDatabaseUsers() async {
+    final response = await _db
+        .select()
+        .order(
+          'total_donated',
+          ascending: false,
+        )
+        .limit(5);
+    final databaseUsers = response.map(
+      (e) {
+        return DatabaseUser.fromJson(e);
+      },
+    ).toList();
+    return databaseUsers;
+  }
+
+  Future<void> updateDatabaseUser(DatabaseUser databaseUser) async {
+    await _db.update(databaseUser.toJson()).eq('id', databaseUser.id);
+  }
 }
