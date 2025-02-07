@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gofund/constants/theme.dart';
 import 'package:gofund/pages/main_page.dart';
 import 'package:gofund/services/auth_service.dart';
+import 'package:gofund/services/database/user_service.dart';
 import 'package:gofund/utils/dialogs/show_error_dialog.dart';
 import 'package:gofund/utils/dialogs/show_loading_dialog.dart';
 import 'package:gofund/widgets/custom_column.dart';
@@ -21,6 +22,7 @@ class _SignupPageState extends State<SignupPage> {
   final _passwordController = TextEditingController();
 
   final authService = AuthService.instance;
+  final userService = UserService.instance;
 
   @override
   void dispose() {
@@ -39,6 +41,10 @@ class _SignupPageState extends State<SignupPage> {
         email: _emailController.text,
         password: _passwordController.text,
       );
+      // final userId = authService.getUser()!.id;
+      // await userService.createDatabaseUser(
+      //   DatabaseUser(id: userId),
+      // );
       if (!mounted) return;
       Navigator.of(context).pop();
       Navigator.of(context).pushAndRemoveUntil(

@@ -5,8 +5,7 @@ class Project {
   final double goalAmount;
   final String? imageUrl;
   final int bankId;
-  final DateTime? createdAt;
-  final DateTime? modifiedAt;
+  final DateTime createdAt;
 
   const Project({
     required this.id,
@@ -15,8 +14,7 @@ class Project {
     required this.goalAmount,
     this.imageUrl,
     required this.bankId,
-    this.createdAt,
-    this.modifiedAt,
+    required this.createdAt,
   });
 
   factory Project.fromJson(Map<String, dynamic> json) {
@@ -28,7 +26,6 @@ class Project {
       imageUrl: json['image_url'],
       bankId: json['bank_id'],
       createdAt: DateTime.parse(json['created_at']),
-      modifiedAt: DateTime.parse(json['modified_at']),
     );
   }
 
@@ -40,8 +37,7 @@ class Project {
       'goal_amount': goalAmount,
       'image_url': imageUrl,
       'bank_id': bankId,
-      'created_at': createdAt,
-      'modified_at': modifiedAt,
+      'created_at': createdAt.toIso8601String(),
     };
   }
 
@@ -63,7 +59,6 @@ class Project {
       imageUrl: imageUrl ?? this.imageUrl,
       bankId: bankId ?? this.bankId,
       createdAt: createdAt ?? this.createdAt,
-      modifiedAt: modifiedAt ?? this.modifiedAt,
     );
   }
 

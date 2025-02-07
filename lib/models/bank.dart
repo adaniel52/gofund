@@ -4,7 +4,7 @@ class Bank {
   final String accountNumber;
   final String bankName;
   final String? bankImageUrl;
-  final DateTime? createdAt;
+  final DateTime createdAt;
 
   const Bank({
     required this.id,
@@ -12,7 +12,7 @@ class Bank {
     required this.accountNumber,
     required this.bankName,
     this.bankImageUrl,
-    this.createdAt,
+    required this.createdAt,
   });
 
   factory Bank.fromJson(Map<String, dynamic> json) {
@@ -33,7 +33,7 @@ class Bank {
       'account_number': accountNumber,
       'bank_name': bankName,
       'bank_image_url': bankImageUrl,
-      'created_at': createdAt,
+      'created_at': createdAt.toIso8601String(),
     };
   }
 

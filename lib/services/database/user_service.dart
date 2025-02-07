@@ -8,6 +8,10 @@ class UserService {
 
   final _db = Supabase.instance.client.from('users');
 
+  Future<void> createDatabaseUser(DatabaseUser databaseUser) async {
+    await _db.insert(databaseUser.toJson());
+  }
+
   Future<DatabaseUser> getDatabaseUser() async {
     final userId = AuthService.instance.getUser()!.id;
     final response = await _db.select().eq('id', userId).single();

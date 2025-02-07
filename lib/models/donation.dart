@@ -3,14 +3,14 @@ class Donation {
   final String userId;
   final int projectId;
   final double amount;
-  final DateTime? createdAt;
+  final DateTime createdAt;
 
   const Donation({
     required this.id,
     required this.userId,
     required this.projectId,
     required this.amount,
-    this.createdAt,
+    required this.createdAt,
   });
 
   factory Donation.fromJson(Map<String, dynamic> json) {
@@ -29,7 +29,7 @@ class Donation {
       'user_id': userId,
       'project_id': projectId,
       'amount': amount,
-      'created_at': createdAt,
+      'created_at': createdAt.toIso8601String(),
     };
   }
 

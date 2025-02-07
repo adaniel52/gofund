@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:gofund/constants/theme.dart';
-import 'package:gofund/models/donation.dart';
 import 'package:gofund/models/project.dart';
-import 'package:gofund/services/auth_service.dart';
 import 'package:gofund/services/database/bank_service.dart';
-import 'package:gofund/services/database/donation_service.dart';
 import 'package:gofund/services/payment_service.dart';
 import 'package:gofund/utils/dialogs/show_error_dialog.dart';
 import 'package:gofund/utils/dialogs/show_succcess_dialog.dart';
@@ -33,8 +30,8 @@ class ProjectDetailsPage extends StatelessWidget {
     final subtitle = 'RM $currentAmount / $targetAmount ($percent)';
 
     final paymentService = PaymentService.instance;
-    final authService = AuthService.instance;
-    final donationService = DonationService.instance;
+    // final authService = AuthService.instance;
+    // final donationService = DonationService.instance;
 
     Future<void> payOnline() async {
       try {
@@ -54,7 +51,7 @@ class ProjectDetailsPage extends StatelessWidget {
                     const Text('Enter the amount in the RM currency:'),
                     TextFormField(
                       controller: controller,
-                      decoration: const InputDecoration(hintText: 'RM 10'),
+                      decoration: const InputDecoration(hintText: 'e.g. 10'),
                       validator: (value) {
                         final num = double.tryParse(value!);
                         if (num == null) return 'Not a valid number';
@@ -89,17 +86,18 @@ class ProjectDetailsPage extends StatelessWidget {
         final amount = double.parse(
           double.parse(text).toStringAsFixed(2),
         );
-        final paymentIntent = await paymentService.makePayment(amount);
+        // final paymentIntent =
+        await paymentService.makePayment(amount);
 
-        final userId = authService.getUser()!.id;
-        final donation = Donation(
-          id: paymentIntent.id,
-          userId: userId,
-          projectId: project.id,
-          amount: amount,
-          createdAt: DateTime.now(),
-        );
-        await donationService.createDonation(donation);
+        // final userId = authService.getUser()!.id;
+        // final donation = Donation(
+        //   id: paymentIntent.id,
+        //   userId: userId,
+        //   projectId: project.id,
+        //   amount: amount,
+        //   createdAt: DateTime.now(),
+        // );
+        // await donationService.createDonation(donation);
 
         if (!context.mounted) return;
         showSuccessDialog(

@@ -4,7 +4,7 @@ class DatabaseUser {
 
   const DatabaseUser({
     required this.id,
-    required this.totalDonated,
+    this.totalDonated = 0,
   });
 
   factory DatabaseUser.fromJson(Map<String, dynamic> json) {
