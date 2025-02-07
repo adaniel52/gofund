@@ -80,4 +80,5 @@ class AppRadius {
   static const smallRadius = BorderRadius.all(Radius.circular(_small));
   static const mediumRadius = BorderRadius.all(Radius.circular(_medium));
   static const largeRadius = BorderRadius.all(Radius.circular(_large));
+  );
 }

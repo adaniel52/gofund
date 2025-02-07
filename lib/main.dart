@@ -36,7 +36,6 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeMode = Provider.of<ThemeProvider>(context).theme;
-
     return MaterialApp(
       title: 'GoFund',
       theme: AppTheme.light,
