@@ -5,21 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "gofund",
+            "name": "debug",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "gofund (profile mode)",
+            "name": "profile",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "gofund (release mode)",
+            "name": "release",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
+        },
+        {
+            "name": "attach",
+            "request": "attach",
+            "type": "dart"
         }
     ]
 }

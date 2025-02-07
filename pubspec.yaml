@@ -1,7 +1,7 @@
 name: gofund
-description: "A new Flutter project."
+description: "An app that connects schools with donors for transparent and efficient fundraising."
 publish_to: 'none'
-version: 0.1.0
+version: 1.0.0
 
 environment:
   sdk: ^3.6.0
@@ -9,6 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.2.1
+  flutter_stripe: ^11.4.0
+  http: ^1.3.0
+  provider: ^6.1.2
+  supabase_flutter: ^2.8.3
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:
@@ -20,4 +26,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - .env
     - assets/icon/
